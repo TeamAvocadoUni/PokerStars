@@ -56,6 +56,18 @@
     <Compile Include="Game.Designer.cs">
       <DependentUpon>Game.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Bot.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Models\Character.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Models\GameObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Models\Player.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="ProgressBars.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
