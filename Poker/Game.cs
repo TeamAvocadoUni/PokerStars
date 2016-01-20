@@ -5,13 +5,17 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Poker.Interfaces;
 using Poker.Models;
 
 namespace Poker
 {
     public partial class Game : Form
     {
-        #region Variables
+        #region Fields
+
+        private IRandomNumberProvider random;
+
         ProgressBar asd = new ProgressBar();
         public int Nm;
         // Panel pPanel = new Panel(); Panel b1Panel = new Panel(); Panel b2Panel = new Panel(); Panel b3Panel = new Panel();
@@ -62,8 +66,9 @@ namespace Poker
         Timer Updates = new Timer();
         int t = 60, i, bb = 500, sb = 250, up = 10000000, turnCount = 0;
         #endregion
-        public Game()
+        public Game(IRandomNumberProvider randomProvider)
         {
+            this.random = randomProvider;
             //bools.Add(player.FoldTurn); bools.Add(bot1.FoldTurn); bools.Add(bot2.FoldTurn); bools.Add(bot3.FoldTurn); bools.Add(bot4.FoldTurn); bools.Add(bot5.FoldTurn);
             call = bb;
             MaximizeBox = false;
@@ -116,10 +121,10 @@ namespace Poker
             bool check = false;
             Bitmap backImage = new Bitmap("../../Resources/Assets/Back/Back.png");
             int horizontal = 580, vertical = 480;
-            Random r = new Random();
+            //Random r = new Random(); // Refactored by AVOCADO Team
             for (i = ImgLocation.Length; i > 0; i--)
             {
-                int j = r.Next(i);
+                var j = this.random.GetNextRandomNumber(i); // Refactored by AVOCADO Team
                 var k = ImgLocation[j];
                 ImgLocation[j] = ImgLocation[i - 1];
                 ImgLocation[i - 1] = k;
@@ -2390,9 +2395,9 @@ namespace Poker
         }
         private void PairHand(ref int sChips, ref bool sTurn, ref bool sFTurn, Label sStatus, double botPower)
         {
-            Random rPair = new Random();
-            int rCall = rPair.Next(10, 16);
-            int rRaise = rPair.Next(10, 13);
+            //Random rPair = new Random(); // Refactored by AVOCADO Team
+            int rCall = this.random.GetRandomNumberInInterval(10, 16); // Refactored by AVOCADO Team
+            int rRaise = this.random.GetRandomNumberInInterval(10, 13); // Refactored by AVOCADO Team
             if (botPower <= 199 && botPower >= 140)
             {
                 PH(ref sChips, ref sTurn, ref sFTurn, sStatus, rCall, 6, rRaise);
@@ -2408,9 +2413,9 @@ namespace Poker
         }
         private void TwoPair(ref int sChips, ref bool sTurn, ref bool sFTurn, Label sStatus, double botPower)
         {
-            Random rPair = new Random();
-            int rCall = rPair.Next(6, 11);
-            int rRaise = rPair.Next(6, 11);
+            //Random rPair = new Random(); // Refactored by AVOCADO Team
+            int rCall = this.random.GetRandomNumberInInterval(6, 11); // Refactored by AVOCADO Team
+            int rRaise = this.random.GetRandomNumberInInterval(6, 11); // Refactored by AVOCADO Team
             if (botPower <= 290 && botPower >= 246)
             {
                 PH(ref sChips, ref sTurn, ref sFTurn, sStatus, rCall, 3, rRaise);
@@ -2426,9 +2431,9 @@ namespace Poker
         }
         private void ThreeOfAKind(ref int sChips, ref bool sTurn, ref bool sFTurn, Label sStatus, int name, double botPower)
         {
-            Random tk = new Random();
-            int tCall = tk.Next(3, 7);
-            int tRaise = tk.Next(4, 8);
+            //Random tk = new Random(); // Refactored by AVOCADO Team
+            int tCall = this.random.GetRandomNumberInInterval(3, 7); // Refactored by AVOCADO Team
+            int tRaise = this.random.GetRandomNumberInInterval(4, 8); // Refactored by AVOCADO Team
             if (botPower <= 390 && botPower >= 330)
             {
                 Smooth(ref sChips, ref sTurn, ref sFTurn, sStatus, name, tCall, tRaise);
@@ -2444,9 +2449,9 @@ namespace Poker
         }
         private void Straight(ref int sChips, ref bool sTurn, ref bool sFTurn, Label sStatus, int name, double botPower)
         {
-            Random str = new Random();
-            int sCall = str.Next(3, 6);
-            int sRaise = str.Next(3, 8);
+            //Random str = new Random(); // Refactored by AVOCADO Team
+            int sCall = this.random.GetRandomNumberInInterval(3, 6); // Refactored by AVOCADO Team
+            int sRaise = this.random.GetRandomNumberInInterval(3, 8); // Refactored by AVOCADO Team
             if (botPower <= 480 && botPower >= 410)
             {
                 Smooth(ref sChips, ref sTurn, ref sFTurn, sStatus, name, sCall, sRaise);
@@ -2462,16 +2467,16 @@ namespace Poker
         }
         private void Flush(ref int sChips, ref bool sTurn, ref bool sFTurn, Label sStatus, int name, double botPower)
         {
-            Random fsh = new Random();
-            int fCall = fsh.Next(2, 6);
-            int fRaise = fsh.Next(3, 7);
+            //Random fsh = new Random(); // Refactored by AVOCADO Team
+            int fCall = this.random.GetRandomNumberInInterval(2, 6); // Refactored by AVOCADO Team
+            int fRaise = this.random.GetRandomNumberInInterval(3, 7); // Refactored by AVOCADO Team
             Smooth(ref sChips, ref sTurn, ref sFTurn, sStatus, name, fCall, fRaise);
         }
         private void FullHouse(ref int sChips, ref bool sTurn, ref bool sFTurn, Label sStatus, int name, double botPower)
         {
-            Random flh = new Random();
-            int fhCall = flh.Next(1, 5);
-            int fhRaise = flh.Next(2, 6);
+            //Random flh = new Random(); // Refactored by AVOCADO Team
+            int fhCall = this.random.GetRandomNumberInInterval(1, 5); // Refactored by AVOCADO Team
+            int fhRaise = this.random.GetRandomNumberInInterval(2, 6); // Refactored by AVOCADO Team
             if (botPower <= 626 && botPower >= 620)
             {
                 Smooth(ref sChips, ref sTurn, ref sFTurn, sStatus, name, fhCall, fhRaise);
@@ -2483,9 +2488,9 @@ namespace Poker
         }
         private void FourOfAKind(ref int sChips, ref bool sTurn, ref bool sFTurn, Label sStatus, int name, double botPower)
         {
-            Random fk = new Random();
-            int fkCall = fk.Next(1, 4);
-            int fkRaise = fk.Next(2, 5);
+            //Random fk = new Random(); // Refactored by AVOCADO Team
+            int fkCall = this.random.GetRandomNumberInInterval(1, 4); // Refactored by AVOCADO Team
+            int fkRaise = this.random.GetRandomNumberInInterval(2, 5); // Refactored by AVOCADO Team
             if (botPower <= 752 && botPower >= 704)
             {
                 Smooth(ref sChips, ref sTurn, ref sFTurn, sStatus, name, fkCall, fkRaise);
@@ -2493,9 +2498,9 @@ namespace Poker
         }
         private void StraightFlush(ref int sChips, ref bool sTurn, ref bool sFTurn, Label sStatus, int name, double botPower)
         {
-            Random sf = new Random();
-            int sfCall = sf.Next(1, 3);
-            int sfRaise = sf.Next(1, 3);
+            //Random sf = new Random(); // Refactored by AVOCADO Team
+            int sfCall = this.random.GetRandomNumberInInterval(1, 3); // Refactored by AVOCADO Team
+            int sfRaise = this.random.GetRandomNumberInInterval(1, 3); // Refactored by AVOCADO Team
             if (botPower <= 913 && botPower >= 804)
             {
                 Smooth(ref sChips, ref sTurn, ref sFTurn, sStatus, name, sfCall, sfRaise);
@@ -2539,8 +2544,8 @@ namespace Poker
         }
         private void HP(ref int sChips, ref bool sTurn, ref bool sFTurn, Label sStatus, double botPower, int n, int n1)
         {
-            Random rand = new Random();
-            int rnd = rand.Next(1, 4);
+            //Random rand = new Random(); // Refactored by AVOCADO Team
+            int rnd = this.random.GetRandomNumberInInterval(1, 4); // Refactored by AVOCADO Team
             if (call <= 0)
             {
                 Check(ref sTurn, sStatus);
@@ -2597,8 +2602,8 @@ namespace Poker
         }
         private void PH(ref int sChips, ref bool sTurn, ref bool sFTurn, Label sStatus, int n, int n1, int r)
         {
-            Random rand = new Random();
-            int rnd = rand.Next(1, 3);
+            //Random rand = new Random(); // Refactored by AVOCADO Team
+            int rnd = this.random.GetRandomNumberInInterval(1, 3); // Refactored by AVOCADO Team
             if (rounds < 2)
             {
                 if (call <= 0)
@@ -2692,8 +2697,8 @@ namespace Poker
         }
         void Smooth(ref int botChips, ref bool botTurn, ref bool botFTurn, Label botStatus, int name, int n, int r)
         {
-            Random rand = new Random();
-            int rnd = rand.Next(1, 3);
+            //Random rand = new Random(); // Refactored by AVOCADO Team
+            int rnd = this.random.GetRandomNumberInInterval(1, 3); // Refactored by AVOCADO Team
             if (call <= 0)
             {
                 Check(ref botTurn, botStatus);
