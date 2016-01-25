@@ -2496,7 +2496,7 @@ namespace Poker
             if (botPower <= 390 && botPower >= 330)
             {
                 Smooth(sChips, sTurn, sFTurn, sStatus, name, tCall, tRaise);
-                sTurn = this.SwitchPlayerTurn();
+                //sTurn = this.SwitchPlayerTurn();
             }
             if (botPower <= 327 && botPower >= 321)//10  8
             {
@@ -2567,52 +2567,51 @@ namespace Poker
             }
         }
 
-        private string Fold(/*bool sTurn, bool sFTurn, */Label sStatus)
+        private void Fold(bool sTurn, bool sFTurn, Label sStatus)
         {
             this.hasRaising = false;
             sStatus.Text = "Fold";
-            //sTurn = false;
-            //sFTurn = true;
-            return sStatus.Text;
+            sTurn = false;
+            sFTurn = true;
         }
 
-        private string Check(/*bool cTurn, */Label cStatus)
+        private void Check(bool cTurn, Label cStatus)
         {
-            this.hasRaising = false;
             cStatus.Text = "Check";
-            //cTurn = false;
-            return cStatus.Text;
+            cTurn = false;
+            hasRaising = false;
         }
 
-        private int Call(int sChips)
+        private void Call(int sChips, bool sTurn, Label sStatus)
         {
-            this.hasRaising = false;
+            hasRaising = false;
+            sTurn = false;
             sChips -= call;
-
-            return sChips;
+            sStatus.Text = "Call " + call;
+            textBoxGamePot.Text = (int.Parse(textBoxGamePot.Text) + call).ToString();
         }
 
-        #region Separating methods with applied single-resposibility principle
-        private bool SwitchPlayerTurn()
-        {
-            return false;
-        }
+        //#region Separating methods with applied single-resposibility principle
+        //private bool SwitchPlayerTurn()
+        //{
+        //    return false;
+        //}
 
-        private bool SwitchPlayerFoldTurn()
-        {
-            return true;
-        }
+        //private bool SwitchPlayerFoldTurn()
+        //{
+        //    return true;
+        //}
 
-        private string RefreshPlayerStatusOnCall(Label sStatus)
-        {
-            return sStatus.Text = "Call " + call;
-        }
+        //private string RefreshPlayerStatusOnCall(Label sStatus)
+        //{
+        //    return sStatus.Text = "Call " + call;
+        //}
 
-        private string RefreshGamePotTextBox()
-        {
-            return textBoxGamePot.Text = (int.Parse(textBoxGamePot.Text) + call).ToString();
-        }
-        #endregion
+        //private string RefreshGamePotTextBox()
+        //{
+        //    return textBoxGamePot.Text = (int.Parse(textBoxGamePot.Text) + call).ToString();
+        //}
+        //#endregion
 
         private void Raised(int sChips, bool sTurn, Label sStatus)
         {
@@ -2634,8 +2633,8 @@ namespace Poker
             int rnd = rand.Next(1, 4);
             if (call <= 0)
             {
-                sStatus.Text = this.Check(/*sTurn, */sStatus);
-                sTurn = this.SwitchPlayerTurn();
+                Check(sTurn, sStatus);
+                //sTurn = this.SwitchPlayerTurn();
             }
             if (call > 0)
             {
@@ -2643,32 +2642,32 @@ namespace Poker
                 {
                     if (call <= RoundN(sChips, n))
                     {
-                        sChips = this.Call(sChips);
-                        sTurn = this.SwitchPlayerTurn();
-                        sStatus.Text = this.RefreshPlayerStatusOnCall(sStatus);
-                        textBoxGamePot.Text = this.RefreshGamePotTextBox();
+                        Call(sChips, sTurn, sStatus);
+                        //sTurn = this.SwitchPlayerTurn();
+                        //sStatus.Text = this.RefreshPlayerStatusOnCall(sStatus);
+                        //textBoxGamePot.Text = this.RefreshGamePotTextBox();
                     }
                     else
                     {
-                        sStatus.Text = this.Fold(/*sTurn, sFTurn,*/ sStatus);
-                        sTurn = this.SwitchPlayerTurn();
-                        sFTurn = this.SwitchPlayerFoldTurn();
+                        Fold(sTurn, sFTurn, sStatus);
+                        //sTurn = this.SwitchPlayerTurn();
+                        //sFTurn = this.SwitchPlayerFoldTurn();
                     }
                 }
                 if (rnd == 2)
                 {
                     if (call <= RoundN(sChips, n1))
                     {
-                        sChips = this.Call(sChips);
-                        sTurn = this.SwitchPlayerTurn();
-                        sStatus.Text = this.RefreshPlayerStatusOnCall(sStatus);
-                        textBoxGamePot.Text = this.RefreshGamePotTextBox();
+                        Call(sChips, sTurn, sStatus);
+                        //sTurn = this.SwitchPlayerTurn();
+                        //sStatus.Text = this.RefreshPlayerStatusOnCall(sStatus);
+                        //textBoxGamePot.Text = this.RefreshGamePotTextBox();
                     }
                     else
                     {
-                        sStatus.Text = this.Fold(/*sTurn, sFTurn,*/ sStatus);
-                        sTurn = this.SwitchPlayerTurn();
-                        sFTurn = this.SwitchPlayerFoldTurn();
+                        Fold(sTurn, sFTurn, sStatus);
+                        //sTurn = this.SwitchPlayerTurn();
+                        //sFTurn = this.SwitchPlayerFoldTurn();
                     }
                 }
             }
@@ -2688,9 +2687,9 @@ namespace Poker
                     }
                     else
                     {
-                        sStatus.Text = this.Fold(/*sTurn, sFTurn,*/ sStatus);
-                        sTurn = this.SwitchPlayerTurn();
-                        sFTurn = this.SwitchPlayerFoldTurn();
+                        Fold(sTurn, sFTurn, sStatus);
+                        //sTurn = this.SwitchPlayerTurn();
+                        //sFTurn = this.SwitchPlayerFoldTurn();
                     }
                 }
             }
@@ -2707,38 +2706,38 @@ namespace Poker
             {
                 if (call <= 0)
                 {
-                    sStatus.Text = this.Check(/*sTurn,*/ sStatus);
-                    sTurn = this.SwitchPlayerTurn();
+                    this.Check(sTurn, sStatus);
+                    //sTurn = this.SwitchPlayerTurn();
                 }
                 if (call > 0)
                 {
                     if (call >= RoundN(sChips, n1))
                     {
-                        sStatus.Text = this.Fold(/*sTurn, sFTurn,*/ sStatus);
-                        sTurn = this.SwitchPlayerTurn();
-                        sFTurn = this.SwitchPlayerFoldTurn();
+                        Fold(sTurn, sFTurn, sStatus);
+                        //sTurn = this.SwitchPlayerTurn();
+                        //sFTurn = this.SwitchPlayerFoldTurn();
                     }
                     if (this.currentRaise > RoundN(sChips, n))
                     {
-                        sStatus.Text = this.Fold(/*sTurn, sFTurn,*/ sStatus);
-                        sTurn = this.SwitchPlayerTurn();
-                        sFTurn = this.SwitchPlayerFoldTurn();
+                        Fold(sTurn, sFTurn, sStatus);
+                        //sTurn = this.SwitchPlayerTurn();
+                        //sFTurn = this.SwitchPlayerFoldTurn();
                     }
                     if (!sFTurn)
                     {
                         if (call >= RoundN(sChips, n) && call <= RoundN(sChips, n1))
                         {
-                            sChips = Call(sChips);
-                            sTurn = this.SwitchPlayerTurn();
-                            sStatus.Text = this.RefreshPlayerStatusOnCall(sStatus);
-                            textBoxGamePot.Text = this.RefreshGamePotTextBox();
+                            Call(sChips, sTurn, sStatus);
+                            //sTurn = this.SwitchPlayerTurn();
+                            //sStatus.Text = this.RefreshPlayerStatusOnCall(sStatus);
+                            //textBoxGamePot.Text = this.RefreshGamePotTextBox();
                         }
                         if (this.currentRaise <= RoundN(sChips, n) && this.currentRaise >= (RoundN(sChips, n)) / 2)
                         {
-                            sChips = this.Call(sChips);
-                            sTurn = this.SwitchPlayerTurn();
-                            sStatus.Text = this.RefreshPlayerStatusOnCall(sStatus);
-                            textBoxGamePot.Text = this.RefreshGamePotTextBox();
+                            Call(sChips, sTurn, sStatus);
+                            //sTurn = this.SwitchPlayerTurn();
+                            //sStatus.Text = this.RefreshPlayerStatusOnCall(sStatus);
+                            //textBoxGamePot.Text = this.RefreshGamePotTextBox();
                         }
                         if (this.currentRaise <= (RoundN(sChips, n)) / 2)
                         {
@@ -2763,31 +2762,31 @@ namespace Poker
                 {
                     if (call >= RoundN(sChips, n1 - rnd))
                     {
-                        sStatus.Text = this.Fold(/*sTurn, sFTurn,*/ sStatus);
-                        sTurn = this.SwitchPlayerTurn();
-                        sFTurn = this.SwitchPlayerFoldTurn();
+                        Fold(sTurn, sFTurn, sStatus);
+                        //sTurn = this.SwitchPlayerTurn();
+                        //sFTurn = this.SwitchPlayerFoldTurn();
                     }
                     if (this.currentRaise > RoundN(sChips, n - rnd))
                     {
-                        sStatus.Text = this.Fold(/*sTurn, sFTurn,*/ sStatus);
-                        sTurn = this.SwitchPlayerTurn();
-                        sFTurn = this.SwitchPlayerFoldTurn();
+                        Fold(sTurn, sFTurn, sStatus);
+                        //sTurn = this.SwitchPlayerTurn();
+                        //sFTurn = this.SwitchPlayerFoldTurn();
                     }
                     if (!sFTurn)
                     {
                         if (call >= RoundN(sChips, n - rnd) && call <= RoundN(sChips, n1 - rnd))
                         {
-                            sChips = this.Call(sChips);
-                            sTurn = this.SwitchPlayerTurn();
-                            sStatus.Text = this.RefreshPlayerStatusOnCall(sStatus);
-                            textBoxGamePot.Text = this.RefreshGamePotTextBox();
+                            Call(sChips, sTurn, sStatus);
+                            //sTurn = this.SwitchPlayerTurn();
+                            //sStatus.Text = this.RefreshPlayerStatusOnCall(sStatus);
+                            //textBoxGamePot.Text = this.RefreshGamePotTextBox();
                         }
                         if (this.currentRaise <= RoundN(sChips, n - rnd) && this.currentRaise >= (RoundN(sChips, n - rnd)) / 2)
                         {
-                            sChips = this.Call(sChips);
-                            sTurn = this.SwitchPlayerTurn();
-                            sStatus.Text = this.RefreshPlayerStatusOnCall(sStatus);
-                            textBoxGamePot.Text = this.RefreshGamePotTextBox();
+                            Call(sChips, sTurn, sStatus);
+                            //sTurn = this.SwitchPlayerTurn();
+                            //sStatus.Text = this.RefreshPlayerStatusOnCall(sStatus);
+                            //textBoxGamePot.Text = this.RefreshGamePotTextBox();
                         }
                         if (this.currentRaise <= (RoundN(sChips, n - rnd)) / 2)
                         {
@@ -2821,8 +2820,8 @@ namespace Poker
             int rnd = rand.Next(1, 3);
             if (call <= 0)
             {
-                botStatus.Text = this.Check(/*botTurn,*/ botStatus);
-                botTurn = this.SwitchPlayerTurn();
+                this.Check(botTurn, botStatus);
+                //botTurn = this.SwitchPlayerTurn();
             }
             else
             {
@@ -2830,10 +2829,10 @@ namespace Poker
                 {
                     if (botChips > call)
                     {
-                        botChips = this.Call(botChips);
-                        botTurn = this.SwitchPlayerTurn();
-                        botStatus.Text = this.RefreshPlayerStatusOnCall(botStatus);
-                        textBoxGamePot.Text = this.RefreshGamePotTextBox();
+                        Call(botChips, botTurn, botStatus);
+                        //botTurn = this.SwitchPlayerTurn();
+                        //botStatus.Text = this.RefreshPlayerStatusOnCall(botStatus);
+                        //textBoxGamePot.Text = this.RefreshGamePotTextBox();
                     }
                     else if (botChips <= call)
                     {
@@ -2855,10 +2854,10 @@ namespace Poker
                         }
                         else
                         {
-                            botChips = this.Call(botChips);
-                            botTurn = this.SwitchPlayerTurn();
-                            botStatus.Text = this.RefreshPlayerStatusOnCall(botStatus);
-                            textBoxGamePot.Text = this.RefreshGamePotTextBox();
+                            Call(botChips, botTurn, botStatus);
+                            //botTurn = this.SwitchPlayerTurn();
+                            //botStatus.Text = this.RefreshPlayerStatusOnCall(botStatus);
+                            //textBoxGamePot.Text = this.RefreshGamePotTextBox();
                         }
                     }
                     else
@@ -2870,7 +2869,7 @@ namespace Poker
             }
             if (botChips <= 0)
             {
-                botFTurn = this.SwitchPlayerFoldTurn();
+                botFTurn = false;
             }
         }
 

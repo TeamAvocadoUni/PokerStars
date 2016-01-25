@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security;
 using System.Windows.Forms;
 
@@ -19,6 +20,7 @@ namespace Poker.Models
             this.Type = type;
             this.Turn = turn;
             this.FoldTurn = foldTurn;
+            //this.Status.
         }
 
         public int Chips { get; set; }
@@ -36,6 +38,8 @@ namespace Poker.Models
         public int Call { get; set; }
 
         public int Raise { get; set; }
+
+        public Label Status { get; set; }
 
         void Rules(int c1, int c2, string currentText, double current, double Power, bool foldedTurn, int[] reserve, PictureBox[] holder, List<Type> win, Type sorted)
         {

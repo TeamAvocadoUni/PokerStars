@@ -66,6 +66,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.player.Status = new Label();
             this.buttonFold = new Button();
             this.buttonCheck = new Button();
             this.buttonCall = new Button();
