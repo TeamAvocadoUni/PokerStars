@@ -16,7 +16,7 @@
         /// Required designer variable.
         /// </summary>
         private IContainer components = null;
-        
+
         private Button buttonFold;
         private Button buttonCheck;
         private Button buttonCall;
@@ -94,7 +94,7 @@
             this.potLabel = new Label();
             this.textBoxRaise = new TextBox();
             this.SuspendLayout();
-             
+
             // 'Fold' button
             this.buttonFold.Anchor = AnchorStyles.Bottom;
             this.buttonFold.Font = new Font(FontFamily, 17F, FontStyle, GraphicsUnit, GdiCharSet);
@@ -104,7 +104,7 @@
             this.buttonFold.TabIndex = 0;
             this.buttonFold.Text = "Fold";
             this.buttonFold.UseVisualStyleBackColor = true;
-            this.buttonFold.Click += new EventHandler(this.bFold_Click);
+            this.buttonFold.Click += new EventHandler(this.buttonFold_Click);
 
             // 'Check' button
             this.buttonCheck.Anchor = AnchorStyles.Bottom;
@@ -115,7 +115,7 @@
             this.buttonCheck.TabIndex = 2;
             this.buttonCheck.Text = "Check";
             this.buttonCheck.UseVisualStyleBackColor = true;
-            this.buttonCheck.Click += new EventHandler(this.bCheck_Click);
+            this.buttonCheck.Click += new EventHandler(this.buttonCheck_Click);
 
             // 'Call' button
             this.buttonCall.Anchor = AnchorStyles.Bottom;
@@ -126,8 +126,8 @@
             this.buttonCall.TabIndex = 3;
             this.buttonCall.Text = "Call";
             this.buttonCall.UseVisualStyleBackColor = true;
-            this.buttonCall.Click += new EventHandler(this.bCall_Click);
-            
+            this.buttonCall.Click += new EventHandler(this.buttonCall_Click);
+
             // 'Raise' button
             this.buttonRaise.Anchor = AnchorStyles.Bottom;
             this.buttonRaise.Font = new Font(FontFamily, 16F, FontStyle, GraphicsUnit, GdiCharSet);
@@ -137,8 +137,8 @@
             this.buttonRaise.TabIndex = 4;
             this.buttonRaise.Text = "Raise";
             this.buttonRaise.UseVisualStyleBackColor = true;
-            this.buttonRaise.Click += new EventHandler(this.bRaise_Click);
-            
+            this.buttonRaise.Click += new EventHandler(this.buttonRaise_Click);
+
             // Progressbar timer
             this.progressbarTimer.Anchor = AnchorStyles.Bottom;
             this.progressbarTimer.BackColor = SystemColors.Control;
@@ -148,7 +148,7 @@
             this.progressbarTimer.Size = new Size(667, 23);
             this.progressbarTimer.TabIndex = 5;
             this.progressbarTimer.Value = 1000;
-            
+
             // Player chips
             this.playerChips.Anchor = AnchorStyles.Bottom;
             this.playerChips.Font = new Font(FontFamily, 10F, FontStyle, GraphicsUnit, GdiCharSet);
@@ -157,7 +157,7 @@
             this.playerChips.Size = new Size(163, 23);
             this.playerChips.TabIndex = 6;
             this.playerChips.Text = "Chips : 0";
-            
+
             // 'Add chips' button 
             this.buttonAddChips.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             this.buttonAddChips.Location = new Point(12, 697);
@@ -167,14 +167,14 @@
             this.buttonAddChips.Text = "AddChips";
             this.buttonAddChips.UseVisualStyleBackColor = true;
             this.buttonAddChips.Click += new EventHandler(this.bAdd_Click);
-            
+
             // Text box for adding chips
             this.textBoxAddChips.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             this.textBoxAddChips.Location = new Point(93, 700);
             this.textBoxAddChips.Name = "textBoxAddChips";
             this.textBoxAddChips.Size = new Size(125, 20);
             this.textBoxAddChips.TabIndex = 8;
-            
+
             // Text box for bot #5 chips 
             this.textBoxBot5Chips.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             this.textBoxBot5Chips.Font = new Font(FontFamily, 10F, FontStyle, GraphicsUnit, GdiCharSet);
@@ -183,7 +183,7 @@
             this.textBoxBot5Chips.Size = new Size(152, 23);
             this.textBoxBot5Chips.TabIndex = 9;
             this.textBoxBot5Chips.Text = "Chips : 0";
-            
+
             // Text box for bot #4 chips
             this.textBoxBot4Chips.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             this.textBoxBot4Chips.Font = new Font(FontFamily, 10F, FontStyle, GraphicsUnit.Point, GdiCharSet);
@@ -192,7 +192,7 @@
             this.textBoxBot4Chips.Size = new Size(123, 23);
             this.textBoxBot4Chips.TabIndex = 10;
             this.textBoxBot4Chips.Text = "Chips : 0";
-            
+
             // Text box for bot #3 chips
             this.textBoxBot3Chips.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             this.textBoxBot3Chips.Font = new Font(FontFamily, 10F, FontStyle, GraphicsUnit, GdiCharSet);
@@ -201,7 +201,7 @@
             this.textBoxBot3Chips.Size = new Size(125, 23);
             this.textBoxBot3Chips.TabIndex = 11;
             this.textBoxBot3Chips.Text = "Chips : 0";
-             
+
             // Text box for bot #2 chips
             this.textBoxBot2Chips.Font = new Font(FontFamily, 10F, FontStyle, GraphicsUnit.Point, GdiCharSet);
             this.textBoxBot2Chips.Location = new Point(276, 81);
@@ -209,7 +209,7 @@
             this.textBoxBot2Chips.Size = new Size(133, 23);
             this.textBoxBot2Chips.TabIndex = 12;
             this.textBoxBot2Chips.Text = "Chips : 0";
-            
+
             // Text box for bot #1 chips
             this.textBoxBot1Chips.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             this.textBoxBot1Chips.Font = new Font(FontFamily, 10F, FontStyle, GraphicsUnit, GdiCharSet);
@@ -218,7 +218,7 @@
             this.textBoxBot1Chips.Size = new Size(142, 23);
             this.textBoxBot1Chips.TabIndex = 13;
             this.textBoxBot1Chips.Text = "Chips : 0";
-            
+
             // Text box for game pot
             this.textBoxGamePot.Anchor = AnchorStyles.None;
             this.textBoxGamePot.Font = new Font(FontFamily, 10F, FontStyle, GraphicsUnit, GdiCharSet);
@@ -227,7 +227,7 @@
             this.textBoxGamePot.Size = new Size(125, 23);
             this.textBoxGamePot.TabIndex = 14;
             this.textBoxGamePot.Text = "0";
-             
+
             // Blind Options button 
             this.buttonBlindOptions.Font = new Font(FontFamily, 12F, FontStyle, GraphicsUnit, GdiCharSet);
             this.buttonBlindOptions.Location = new Point(12, 12);
@@ -237,7 +237,7 @@
             this.buttonBlindOptions.Text = "BB/SB";
             this.buttonBlindOptions.UseVisualStyleBackColor = true;
             this.buttonBlindOptions.Click += new EventHandler(this.bOptions_Click);
-             
+
             // 'Big Blind' button
             this.buttonBigBlind.Location = new Point(12, 254);
             this.buttonBigBlind.Name = "buttonBigBlind";
@@ -245,15 +245,15 @@
             this.buttonBigBlind.TabIndex = 16;
             this.buttonBigBlind.Text = "Big Blind";
             this.buttonBigBlind.UseVisualStyleBackColor = true;
-            this.buttonBigBlind.Click += new EventHandler(this.bBB_Click);
-            
+            this.buttonBigBlind.Click += new EventHandler(this.buttonBigBlind_Click);
+
             // Text box 'Small Blind' 
             this.textBoxSmallBlind.Location = new Point(12, 228);
             this.textBoxSmallBlind.Name = "textBoxSmallBlind";
             this.textBoxSmallBlind.Size = new Size(75, 20);
             this.textBoxSmallBlind.TabIndex = 17;
             this.textBoxSmallBlind.Text = "250";
-             
+
             // 'Small Blind' button
             this.buttonSmallBlind.Location = new Point(12, 199);
             this.buttonSmallBlind.Name = "buttonSmallBlind";
@@ -261,36 +261,36 @@
             this.buttonSmallBlind.TabIndex = 18;
             this.buttonSmallBlind.Text = "Small Blind";
             this.buttonSmallBlind.UseVisualStyleBackColor = true;
-            this.buttonSmallBlind.Click += new EventHandler(this.bSB_Click);
-            
+            this.buttonSmallBlind.Click += new EventHandler(this.buttonSmallBlind_Click);
+
             // Text box 'Big Blind'
             this.textBoxBigBlind.Location = new Point(12, 283);
             this.textBoxBigBlind.Name = "textBoxBigBlind";
             this.textBoxBigBlind.Size = new Size(75, 20);
             this.textBoxBigBlind.TabIndex = 19;
             this.textBoxBigBlind.Text = "500";
-             
+
             // Bot #5 status
             this.bot5Status.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             this.bot5Status.Location = new Point(1012, 579);
             this.bot5Status.Name = "bot5Status";
             this.bot5Status.Size = new Size(152, 32);
             this.bot5Status.TabIndex = 26;
-             
+
             // Bot #4 status
             this.bot4Status.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             this.bot4Status.Location = new Point(970, 107);
             this.bot4Status.Name = "bot4Status";
             this.bot4Status.Size = new Size(123, 32);
             this.bot4Status.TabIndex = 27;
-            
+
             // Bot #3 status
             this.bot3Status.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             this.bot3Status.Location = new Point(755, 107);
             this.bot3Status.Name = "bot3Status";
             this.bot3Status.Size = new Size(125, 32);
             this.bot3Status.TabIndex = 28;
-            
+
             // Bot #2 status
             this.bot2Status.Location = new Point(276, 107);
             this.bot2Status.Name = "bot2Status";
@@ -303,14 +303,14 @@
             this.bot1Status.Name = "bot1Status";
             this.bot1Status.Size = new Size(142, 32);
             this.bot1Status.TabIndex = 29;
-             
+
             // Player status
             this.playerStatus.Anchor = AnchorStyles.Bottom;
             this.playerStatus.Location = new Point(755, 579);
             this.playerStatus.Name = "playerStatus";
             this.playerStatus.Size = new Size(163, 32);
             this.playerStatus.TabIndex = 30;
-             
+
             // Pot label 
             this.potLabel.Anchor = AnchorStyles.None;
             this.potLabel.Font = new Font(FontFamily, 10F, FontStyle, GraphicsUnit, GdiCharSet);
@@ -319,7 +319,7 @@
             this.potLabel.Size = new Size(31, 21);
             this.potLabel.TabIndex = 0;
             this.potLabel.Text = "Pot";
-            
+
             // Text box 'Raise'
             this.textBoxRaise.Anchor = AnchorStyles.Bottom;
             this.textBoxRaise.Location = new Point(965, 703);
@@ -371,4 +371,3 @@
         #endregion
     }
 }
-

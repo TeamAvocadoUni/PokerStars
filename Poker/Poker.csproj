@@ -56,7 +56,6 @@
     <Compile Include="Game.Designer.cs">
       <DependentUpon>Game.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\IRandomNumberProvider.cs" />
     <Compile Include="Models\Bot.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -73,7 +72,6 @@
     <Compile Include="ProgressBars.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Type.cs" />
-    <Compile Include="Utils\RandomNumberProvider.cs" />
     <EmbeddedResource Include="AddChips.resx">
       <DependentUpon>AddChips.cs</DependentUpon>
     </EmbeddedResource>
