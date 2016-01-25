@@ -8,7 +8,7 @@ namespace Poker.Models
         public const int SecondCardNumber = 1;
         public const string PlayerName = "Player";
 
-        public Player(Panel panel, int chips, bool folded, int call, int raise, double power, double type, bool turn, bool foldTurn) : base(panel, chips, folded, call, raise, power, type, turn, foldTurn)
+        public Player(int chips, bool folded, int call, int raise, double power, double type, bool turn, bool foldTurn) : base(chips, folded, call, raise, power, type, turn, foldTurn)
         {
             this.Turn = true;
         }

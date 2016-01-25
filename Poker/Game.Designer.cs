@@ -22,26 +22,24 @@
         private Button buttonCall;
         private Button buttonRaise;
         private ProgressBar progressbarTimer;
-        private TextBox playerChips;
         private Button buttonAddChips;
         private TextBox textBoxAddChips;
-        private TextBox textBoxBot5Chips;
-        private TextBox textBoxBot4Chips;
-        private TextBox textBoxBot3Chips;
-        private TextBox textBoxBot2Chips;
-        private TextBox textBoxBot1Chips;
+        //private TextBox textBoxBot5Chips;
+        //private TextBox textBoxBot4Chips;
+        //private TextBox textBoxBot3Chips;
+        //private TextBox textBoxBot2Chips;
+        //private TextBox textBoxBot1Chips;
         private TextBox textBoxGamePot;
         private Button buttonBlindOptions;
         private Button buttonBigBlind;
         private TextBox textBoxSmallBlind;
         private Button buttonSmallBlind;
         private TextBox textBoxBigBlind;
-        private Label bot5Status;
-        private Label bot4Status;
-        private Label bot3Status;
-        private Label bot1Status;
-        private Label playerStatus;
-        private Label bot2Status;
+        //private Label bot5Status;
+        //private Label bot4Status;
+        //private Label bot3Status;
+        //private Label bot1Status;
+        //private Label bot2Status;
         private Label potLabel;
         private TextBox textBoxRaise;
 
@@ -67,31 +65,31 @@
         private void InitializeComponent()
         {
             this.player.Status = new Label();
+            this.player.TextBoxChips = new TextBox();
             this.buttonFold = new Button();
             this.buttonCheck = new Button();
             this.buttonCall = new Button();
             this.buttonRaise = new Button();
             this.progressbarTimer = new ProgressBar();
-            this.playerChips = new TextBox();
             this.buttonAddChips = new Button();
             this.textBoxAddChips = new TextBox();
-            this.textBoxBot5Chips = new TextBox();
-            this.textBoxBot4Chips = new TextBox();
-            this.textBoxBot3Chips = new TextBox();
-            this.textBoxBot2Chips = new TextBox();
-            this.textBoxBot1Chips = new TextBox();
+             this.bot5.TextBoxChips = new TextBox();
+             this.bot4.TextBoxChips = new TextBox();
+            this.bot3.TextBoxChips = new TextBox();
+            this.bot2.TextBoxChips = new TextBox();
+            this.bot1.TextBoxChips = new TextBox();
             this.textBoxGamePot = new TextBox();
             this.buttonBlindOptions = new Button();
             this.buttonBigBlind = new Button();
             this.textBoxSmallBlind = new TextBox();
             this.buttonSmallBlind = new Button();
             this.textBoxBigBlind = new TextBox();
-            this.bot5Status = new Label();
-            this.bot4Status = new Label();
-            this.bot3Status = new Label();
-            this.bot1Status = new Label();
-            this.playerStatus = new Label();
-            this.bot2Status = new Label();
+            this.bot5.Status = new Label();
+            this.bot4.Status = new Label();
+            this.bot3.Status = new Label();
+            this.bot1.Status = new Label();
+           // this.playerStatus = new Label();
+            this.bot2.Status = new Label();
             this.potLabel = new Label();
             this.textBoxRaise = new TextBox();
             this.SuspendLayout();
@@ -151,13 +149,13 @@
             this.progressbarTimer.Value = 1000;
 
             // Player chips
-            this.playerChips.Anchor = AnchorStyles.Bottom;
-            this.playerChips.Font = new Font(FontFamily, 10F, FontStyle, GraphicsUnit, GdiCharSet);
-            this.playerChips.Location = new Point(755, 553);
-            this.playerChips.Name = "playerChips";
-            this.playerChips.Size = new Size(163, 23);
-            this.playerChips.TabIndex = 6;
-            this.playerChips.Text = "Chips : 0";
+            this.player.TextBoxChips.Anchor = AnchorStyles.Bottom;
+            this.player.TextBoxChips.Font = new Font(FontFamily, 10F, FontStyle, GraphicsUnit, GdiCharSet);
+            this.player.TextBoxChips.Location = new Point(755, 553);
+            this.player.TextBoxChips.Name = "playerChips";
+            this.player.TextBoxChips.Size = new Size(163, 23);
+            this.player.TextBoxChips.TabIndex = 6;
+            this.player.TextBoxChips.Text = "Chips : 0";
 
             // 'Add chips' button 
             this.buttonAddChips.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
@@ -177,48 +175,48 @@
             this.textBoxAddChips.TabIndex = 8;
 
             // Text box for bot #5 chips 
-            this.textBoxBot5Chips.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            this.textBoxBot5Chips.Font = new Font(FontFamily, 10F, FontStyle, GraphicsUnit, GdiCharSet);
-            this.textBoxBot5Chips.Location = new Point(1012, 553);
-            this.textBoxBot5Chips.Name = "textBoxBot5Chips";
-            this.textBoxBot5Chips.Size = new Size(152, 23);
-            this.textBoxBot5Chips.TabIndex = 9;
-            this.textBoxBot5Chips.Text = "Chips : 0";
+             this.bot5.TextBoxChips.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+             this.bot5.TextBoxChips.Font = new Font(FontFamily, 10F, FontStyle, GraphicsUnit, GdiCharSet);
+             this.bot5.TextBoxChips.Location = new Point(1012, 553);
+             this.bot5.TextBoxChips.Name = "textBoxBot5Chips";
+             this.bot5.TextBoxChips.Size = new Size(152, 23);
+             this.bot5.TextBoxChips.TabIndex = 9;
+             this.bot5.TextBoxChips.Text = "Chips : 0";
 
             // Text box for bot #4 chips
-            this.textBoxBot4Chips.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            this.textBoxBot4Chips.Font = new Font(FontFamily, 10F, FontStyle, GraphicsUnit.Point, GdiCharSet);
-            this.textBoxBot4Chips.Location = new Point(970, 81);
-            this.textBoxBot4Chips.Name = "textBoxBot4Chips";
-            this.textBoxBot4Chips.Size = new Size(123, 23);
-            this.textBoxBot4Chips.TabIndex = 10;
-            this.textBoxBot4Chips.Text = "Chips : 0";
+             this.bot4.TextBoxChips.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+             this.bot4.TextBoxChips.Font = new Font(FontFamily, 10F, FontStyle, GraphicsUnit.Point, GdiCharSet);
+             this.bot4.TextBoxChips.Location = new Point(970, 81);
+             this.bot4.TextBoxChips.Name = "textBoxBot4Chips";
+             this.bot4.TextBoxChips.Size = new Size(123, 23);
+             this.bot4.TextBoxChips.TabIndex = 10;
+             this.bot4.TextBoxChips.Text = "Chips : 0";
 
             // Text box for bot #3 chips
-            this.textBoxBot3Chips.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            this.textBoxBot3Chips.Font = new Font(FontFamily, 10F, FontStyle, GraphicsUnit, GdiCharSet);
-            this.textBoxBot3Chips.Location = new Point(755, 81);
-            this.textBoxBot3Chips.Name = "textBoxBot3Chips";
-            this.textBoxBot3Chips.Size = new Size(125, 23);
-            this.textBoxBot3Chips.TabIndex = 11;
-            this.textBoxBot3Chips.Text = "Chips : 0";
+             this.bot3.TextBoxChips.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+             this.bot3.TextBoxChips.Font = new Font(FontFamily, 10F, FontStyle, GraphicsUnit, GdiCharSet);
+             this.bot3.TextBoxChips.Location = new Point(755, 81);
+             this.bot3.TextBoxChips.Name = "textBoxBot3Chips";
+             this.bot3.TextBoxChips.Size = new Size(125, 23);
+             this.bot3.TextBoxChips.TabIndex = 11;
+             this.bot3.TextBoxChips.Text = "Chips : 0";
 
             // Text box for bot #2 chips
-            this.textBoxBot2Chips.Font = new Font(FontFamily, 10F, FontStyle, GraphicsUnit.Point, GdiCharSet);
-            this.textBoxBot2Chips.Location = new Point(276, 81);
-            this.textBoxBot2Chips.Name = "textBoxBot2Chips";
-            this.textBoxBot2Chips.Size = new Size(133, 23);
-            this.textBoxBot2Chips.TabIndex = 12;
-            this.textBoxBot2Chips.Text = "Chips : 0";
+             this.bot2.TextBoxChips.Font = new Font(FontFamily, 10F, FontStyle, GraphicsUnit.Point, GdiCharSet);
+             this.bot2.TextBoxChips.Location = new Point(276, 81);
+             this.bot2.TextBoxChips.Name = "textBoxBot2Chips";
+             this.bot2.TextBoxChips.Size = new Size(133, 23);
+             this.bot2.TextBoxChips.TabIndex = 12;
+             this.bot2.TextBoxChips.Text = "Chips : 0";
 
             // Text box for bot #1 chips
-            this.textBoxBot1Chips.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            this.textBoxBot1Chips.Font = new Font(FontFamily, 10F, FontStyle, GraphicsUnit, GdiCharSet);
-            this.textBoxBot1Chips.Location = new Point(181, 553);
-            this.textBoxBot1Chips.Name = "textBoxBot1Chips";
-            this.textBoxBot1Chips.Size = new Size(142, 23);
-            this.textBoxBot1Chips.TabIndex = 13;
-            this.textBoxBot1Chips.Text = "Chips : 0";
+            this.bot1.TextBoxChips.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+             this.bot1.TextBoxChips.Font = new Font(FontFamily, 10F, FontStyle, GraphicsUnit, GdiCharSet);
+             this.bot1.TextBoxChips.Location = new Point(181, 553);
+             this.bot1.TextBoxChips.Name = "textBoxBot1Chips";
+             this.bot1.TextBoxChips.Size = new Size(142, 23);
+             this.bot1.TextBoxChips.TabIndex = 13;
+             this.bot1.TextBoxChips.Text = "Chips : 0";
 
             // Text box for game pot
             this.textBoxGamePot.Anchor = AnchorStyles.None;
@@ -272,45 +270,45 @@
             this.textBoxBigBlind.Text = "500";
 
             // Bot #5 status
-            this.bot5Status.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            this.bot5Status.Location = new Point(1012, 579);
-            this.bot5Status.Name = "bot5Status";
-            this.bot5Status.Size = new Size(152, 32);
-            this.bot5Status.TabIndex = 26;
+            this.bot5.Status.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            this.bot5.Status.Location = new Point(1012, 579);
+            this.bot5.Status.Name = "bot5Status";
+            this.bot5.Status.Size = new Size(152, 32);
+            this.bot5.Status.TabIndex = 26;
 
             // Bot #4 status
-            this.bot4Status.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            this.bot4Status.Location = new Point(970, 107);
-            this.bot4Status.Name = "bot4Status";
-            this.bot4Status.Size = new Size(123, 32);
-            this.bot4Status.TabIndex = 27;
+            this.bot4.Status.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            this.bot4.Status.Location = new Point(970, 107);
+            this.bot4.Status.Name = "bot4Status";
+            this.bot4.Status.Size = new Size(123, 32);
+            this.bot4.Status.TabIndex = 27;
 
             // Bot #3 status
-            this.bot3Status.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            this.bot3Status.Location = new Point(755, 107);
-            this.bot3Status.Name = "bot3Status";
-            this.bot3Status.Size = new Size(125, 32);
-            this.bot3Status.TabIndex = 28;
+            this.bot3.Status.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            this.bot3.Status.Location = new Point(755, 107);
+            this.bot3.Status.Name = "bot3Status";
+            this.bot3.Status.Size = new Size(125, 32);
+            this.bot3.Status.TabIndex = 28;
 
             // Bot #2 status
-            this.bot2Status.Location = new Point(276, 107);
-            this.bot2Status.Name = "bot2Status";
-            this.bot2Status.Size = new Size(133, 32);
-            this.bot2Status.TabIndex = 31;
+            this.bot2.Status.Location = new Point(276, 107);
+            this.bot2.Status.Name = "bot2Status";
+            this.bot2.Status.Size = new Size(133, 32);
+            this.bot2.Status.TabIndex = 31;
 
             // Bot #1 status
-            this.bot1Status.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            this.bot1Status.Location = new Point(181, 579);
-            this.bot1Status.Name = "bot1Status";
-            this.bot1Status.Size = new Size(142, 32);
-            this.bot1Status.TabIndex = 29;
+            this.bot1.Status.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            this.bot1.Status.Location = new Point(181, 579);
+            this.bot1.Status.Name = "bot1Status";
+            this.bot1.Status.Size = new Size(142, 32);
+            this.bot1.Status.TabIndex = 29;
 
             // Player status
-            this.playerStatus.Anchor = AnchorStyles.Bottom;
-            this.playerStatus.Location = new Point(755, 579);
-            this.playerStatus.Name = "playerStatus";
-            this.playerStatus.Size = new Size(163, 32);
-            this.playerStatus.TabIndex = 30;
+            this.player.Status.Anchor = AnchorStyles.Bottom;
+            this.player.Status.Location = new Point(755, 579);
+            this.player.Status.Name = "playerStatus";
+            this.player.Status.Size = new Size(163, 32);
+            this.player.Status.TabIndex = 30;
 
             // Pot label 
             this.potLabel.Anchor = AnchorStyles.None;
@@ -337,26 +335,26 @@
             this.ClientSize = new Size(1350, 729);
             this.Controls.Add(this.textBoxRaise);
             this.Controls.Add(this.potLabel);
-            this.Controls.Add(this.bot2Status);
-            this.Controls.Add(this.playerStatus);
-            this.Controls.Add(this.bot1Status);
-            this.Controls.Add(this.bot3Status);
-            this.Controls.Add(this.bot4Status);
-            this.Controls.Add(this.bot5Status);
+            this.Controls.Add(this.bot2.Status);
+            this.Controls.Add(this.player.Status);
+            this.Controls.Add(this.bot1.Status);
+            this.Controls.Add(this.bot3.Status);
+            this.Controls.Add(this.bot4.Status);
+            this.Controls.Add(this.bot5.Status);
             this.Controls.Add(this.textBoxBigBlind);
             this.Controls.Add(this.buttonSmallBlind);
             this.Controls.Add(this.textBoxSmallBlind);
             this.Controls.Add(this.buttonBigBlind);
             this.Controls.Add(this.buttonBlindOptions);
             this.Controls.Add(this.textBoxGamePot);
-            this.Controls.Add(this.textBoxBot1Chips);
-            this.Controls.Add(this.textBoxBot2Chips);
-            this.Controls.Add(this.textBoxBot3Chips);
-            this.Controls.Add(this.textBoxBot4Chips);
-            this.Controls.Add(this.textBoxBot5Chips);
+            this.Controls.Add( this.bot1.TextBoxChips);
+            this.Controls.Add( this.bot2.TextBoxChips);
+            this.Controls.Add( this.bot3.TextBoxChips);
+            this.Controls.Add( this.bot4.TextBoxChips);
+            this.Controls.Add( this.bot5.TextBoxChips);
             this.Controls.Add(this.textBoxAddChips);
             this.Controls.Add(this.buttonAddChips);
-            this.Controls.Add(this.playerChips);
+            this.Controls.Add(this.player.TextBoxChips);
             this.Controls.Add(this.progressbarTimer);
             this.Controls.Add(this.buttonRaise);
             this.Controls.Add(this.buttonCall);

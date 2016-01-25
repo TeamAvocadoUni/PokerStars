@@ -9,9 +9,8 @@ namespace Poker.Models
 {
     public abstract class Character : GameObject
     {
-        protected Character(Panel panel, int chips, bool folded, int call, int raise, double power, double type, bool turn, bool foldTurn)
+        protected Character(int chips, bool folded, int call, int raise, double power, double type, bool turn, bool foldTurn)
         {
-            this.Panel = panel;
             this.Chips = chips;
             this.Folded = folded;
             this.Call = call;
@@ -22,7 +21,7 @@ namespace Poker.Models
             this.FoldTurn = foldTurn;
             //this.Status.
         }
-
+        
         public int Chips { get; set; }
 
         public double Power { get; set; }
