@@ -84,6 +84,7 @@
     <Compile Include="Models\Character\Deck.cs" />
     <Compile Include="Models\Character\Player.cs" />
     <Compile Include="Models\Character\SingleBet.cs" />
+    <Compile Include="Models\HandPower.cs" />
     <Compile Include="Models\PokerManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProgressBars.cs" />

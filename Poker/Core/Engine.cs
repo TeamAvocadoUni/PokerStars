@@ -17,15 +17,15 @@ namespace Poker.Core
     {
         public event EngineStateEvent EngineEvent;
 
-        private HandClassificator handType = new HandClassificator();
+        private HandPower handType = new HandPower();
         private CheckHand checkHandType = new CheckHand(); 
         private ICharacter player;
         private IPokerManager pokerManager;
         private IDeck deck;
+        private int raise;
         private IList<ICharacter> bots;
         private bool changed;
         private int raisedTurn = 1;
-        // TODO: Implement logic to determine strongest hand
         private List<Type> strongestHands = new List<Type>(); 
         private bool hasRaisedPlayers;
         private Type winningHand;
@@ -657,7 +657,7 @@ namespace Poker.Core
 
         private void ResetGameVariables()
         {
-            //this.strongestHands.Clear(); // TODO: Implement players's hand logic
+            this.strongestHands.Clear(); 
             this.winningHand.Current = 0;
             this.winningHand.Power = 0;
             this.Bet.Clear();
@@ -688,62 +688,53 @@ namespace Poker.Core
             {
                 if (player.CharacterType.Current == GameConstants.HighCard)
                 {
-                    // TODO: Implemnt HighCard logic
-                    //handType.HighCard(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                    handType.HighCard(player, Call, this.Bet,ref raise, ref hasRaisedPlayers);
+                    
                 }
 
                 if (player.CharacterType.Current == GameConstants.PairTable)
                 {
-                    // TODO: Implement PairHand logic
-                    //handType.PairTable(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                   handType.PairTable(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
                 }
 
                 if (player.CharacterType.Current == GameConstants.PairFromHand)
                 {
-                    // TODO: Implement PairHand logic
-                    //handType.PairHand(player, Call, this.Bet, ref raise, ref hasRaisedPlayers, this.pokerManager.CurrentGameState);
+                    handType.PairHand(player, Call, this.Bet, ref raise, ref hasRaisedPlayers, this.pokerManager.CurrentGameState);
                 }
 
                 if (player.CharacterType.Current == GameConstants.TwoPair)
                 {
-                    // TODO: Implement TwoPair logic
-                    //handType.TwoPair(player, Call, this.Bet, ref raise, ref hasRaisedPlayers, this.pokerManager.CurrentGameState);
+                    handType.TwoPair(player, Call, this.Bet, ref raise, ref hasRaisedPlayers, this.pokerManager.CurrentGameState);
                 }
 
                 if (player.CharacterType.Current == GameConstants.ThreeOfAKind)
                 {
-                    // TODO: Implement ThreeOfAKind logic
-                    //handType.ThreeOfAKind(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                    handType.ThreeOfAKind(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
                 }
 
                 if (player.CharacterType.Current == GameConstants.Straigth)
                 {
-                    // TODO: Implement Straight logic
-                    //handType.Straight(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                    handType.Straight(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
                 }
 
                 if (player.CharacterType.Current == GameConstants.Flush || player.CharacterType.Current == GameConstants.FlushWithAce)
                 {
-                    // TODO: Implement Flush logic
-                    //handType.Flush(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                    handType.Flush(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
                 }
 
                 if (player.CharacterType.Current == GameConstants.FullHouse)
                 {
-                    // TODO: Impleemnt FullHouse logic
-                    //handType.FullHouse(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                   handType.FullHouse(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
                 }
 
                 if (player.CharacterType.Current == GameConstants.FourOfAKind)
                 {
-                    // TODO: Implement FourOfKind logic
-                    //handType.FourOfAKind(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                    handType.FourOfAKind(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
                 }
 
                 if (player.CharacterType.Current == GameConstants.StraightFlush || player.CharacterType.Current == GameConstants.RoyalFlush)
                 {
-                    // TODO: Implement method StraighFlush
-                    //handType.StraightFlush(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                    handType.StraightFlush(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
                 }
             }
 

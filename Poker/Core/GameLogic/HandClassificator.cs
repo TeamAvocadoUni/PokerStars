@@ -16,7 +16,7 @@ namespace Poker.Core.GameLogic
             this.random = new Random();
         }
 
-        public void HP(ICharacter character, int n, int n1, int call, ISingleBet pot, int raise)
+        public void HP(ICharacter character, int n, int n1, int call, ISingleBet pot,ref int raise,ref bool raising)
         {
             int randomInteger = this.random.Next(1, 4);
 
@@ -78,7 +78,7 @@ namespace Poker.Core.GameLogic
             }
         }
 
-        public void PH(ICharacter character, int n, int n1, int r, int call, ISingleBet bet, int raise, GameStateType state)
+        public void PH(ICharacter character, int n, int n1, int r, int call, ISingleBet bet, ref int raise,ref bool raising, GameStateType state)
         {
             int rnd = this.random.Next(1, 3);
 
@@ -185,7 +185,7 @@ namespace Poker.Core.GameLogic
             }
         }
 
-        public void Smooth(ICharacter character, int n, int r, int call, ISingleBet pot, int raise)
+        public void Smooth(ICharacter character, int n, int r, int call, ISingleBet pot, int raise, ref bool raising)
         {
             if (call <= 0)
             {
