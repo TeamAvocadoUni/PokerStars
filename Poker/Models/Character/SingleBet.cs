@@ -15,7 +15,7 @@
             this.UpdateTextBox();
         }
 
-        public TextBox BetTextBox { get; }
+        public TextBox BetTextBox { get; set; }
 
         public int BetValue { get; set; }
 

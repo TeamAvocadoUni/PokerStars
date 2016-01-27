@@ -20,7 +20,7 @@
             this.SetCardDetails(x, y);
         }
 
-        public GameStateType CurrentGameState { get; }
+        public GameStateType CurrentGameState { get; set; }
 
         GameStateType IPokerManager.CurrentGameState
         {

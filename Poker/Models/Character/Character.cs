@@ -72,7 +72,7 @@
 
         public int RaiseValue { get; set; }
 
-        public TextBox TextBoxChips { get; }
+        public TextBox TextBoxChips { get; set; }
 
         public override async Task SetAllCards(IList<ICard> cards)
         {

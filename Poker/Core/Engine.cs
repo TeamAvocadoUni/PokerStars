@@ -19,7 +19,7 @@ namespace Poker.Core
 
         private HandClassificator handType = new HandClassificator();
         // TODO: Implement logic for check type of hand
-        //private CheckHandType checkHandType = new CheckHandType(); 
+        private CheckHand checkHandType = new CheckHand(); 
         private ICharacter player;
         private IPokerManager pokerManager;
         private IDeck deck;

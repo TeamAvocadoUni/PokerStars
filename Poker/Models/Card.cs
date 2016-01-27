@@ -21,8 +21,8 @@
             }
         }
 
-        public int CardPower { get; }
+        public int CardPower { get; set; }
 
-        public Image CardImage { get; }
+        public Image CardImage { get; set; }
     }
 }
