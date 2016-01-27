@@ -1,5 +1,6 @@
 ﻿namespace Poker.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.Threading.Tasks;
@@ -20,6 +21,19 @@
         }
 
         public GameStateType CurrentGameState { get; }
+
+        GameStateType IPokerManager.CurrentGameState
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         public override async Task SetAllCards(IList<ICard> cards)
         {

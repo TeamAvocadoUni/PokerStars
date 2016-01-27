@@ -52,6 +52,7 @@
     </Compile>
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\Factory\CharacterFactory.cs" />
+    <Compile Include="Core\GameLogic\CardCombinations.cs" />
     <Compile Include="Core\GameLogic\GameActions.cs" />
     <Compile Include="Core\GameLogic\HandClassificator.cs" />
     <Compile Include="CustomMessages\Message.cs" />

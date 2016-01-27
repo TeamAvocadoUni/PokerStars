@@ -4,6 +4,6 @@
 
     public interface IPokerManager : ICardHolder
     {
-        GameStateType CurrentGameState { get; }
+        GameStateType CurrentGameState { get; set; }
     }
 }

@@ -18,11 +18,11 @@
 
         int Chips { get; set; }
 
-        int CallValue { get; }
+        int CallValue { get; set; }
 
-        int RaiseValue { get; }
+        int RaiseValue { get; set; }
 
-        bool HasFolded { get; }
+        bool HasFolded { get; set; }
 
         bool HasRaised { get; set; }
 
