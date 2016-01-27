@@ -1,11 +1,13 @@
-﻿namespace Poker.Interfaces
+﻿using Poker.Models;
+
+namespace Poker.Interfaces
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public interface IDeck
     {
-        IList<ICard> GetAllCards();
+        IList<Card> GetAllCards();
 
         ICard GetCardAtPosition(int position);
 

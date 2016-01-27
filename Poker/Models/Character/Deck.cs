@@ -45,9 +45,9 @@
             }
         }
 
-        public IList<ICard> GetAllCards()
+        public IList<Card> GetAllCards()
         {
-            return this.cards;
+            return (IList<Card>) this.cards;
         }
 
         public ICard GetCardAtPosition(int position)

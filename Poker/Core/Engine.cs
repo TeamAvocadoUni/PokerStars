@@ -18,7 +18,6 @@ namespace Poker.Core
         public event EngineStateEvent EngineEvent;
 
         private HandClassificator handType = new HandClassificator();
-        // TODO: Implement logic for check type of hand
         private CheckHand checkHandType = new CheckHand(); 
         private ICharacter player;
         private IPokerManager pokerManager;
@@ -27,7 +26,7 @@ namespace Poker.Core
         private bool changed;
         private int raisedTurn = 1;
         // TODO: Implement logic to determine strongest hand
-        //private List<Type> strongestHands = new List<Type>(); 
+        private List<Type> strongestHands = new List<Type>(); 
         private bool hasRaisedPlayers;
         private Type winningHand;
         private int turnCount = 0;
@@ -236,46 +235,46 @@ namespace Poker.Core
                 {
                     if (this.deck.GetCardAtPosition(i).CardPower == player.Cards.First().CardPower && this.deck.GetCardAtPosition(i + 1).CardPower == player.Cards.Last().CardPower)
                     {
-                        // TODO: 
+                        
 
-                        //this.checkHandType.CheckPairFromHand(player, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
+                        this.checkHandType.CheckPairFromHand(player, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
 
-                        //#region TwoPair or Two TwoPair from Table current = 2 || 0
-                        //this.checkHandType.CheckPairTwoPair(player, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
+                        #region TwoPair or Two TwoPair from Table current = 2 || 0
+                        this.checkHandType.CheckPairTwoPair(player, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
 
-                        //#endregion
+                        #endregion
 
-                        //#region Two TwoPair current = 2
-                        //#endregion
+                        #region Two TwoPair current = 2
+                        #endregion
 
-                        //#region Three of a kind current = 3
-                        //this.checkHandType.CheckThreeOfAKind(player, Straight, ref this.strongestHands, ref this.winningHand);
-                        //#endregion
+                        #region Three of a kind current = 3
+                        this.checkHandType.CheckThreeOfAKind(player, Straight, ref this.strongestHands, ref this.winningHand);
+                        #endregion
 
-                        //#region Straight current = 4
-                        //this.checkHandType.CheckStraight(player, Straight, ref this.strongestHands, ref this.winningHand);
-                        //#endregion
+                        #region Straight current = 4
+                        this.checkHandType.CheckStraight(player, Straight, ref this.strongestHands, ref this.winningHand);
+                        #endregion
 
-                        //#region Flush current = 5 || 5.5
-                        //this.checkHandType.CheckFlush(player, ref vf, Straight1, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
-                        //#endregion
+                        #region Flush current = 5 || 5.5
+                        this.checkHandType.CheckFlush(player, ref vf, Straight1, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
+                        #endregion
 
-                        //#region Full House current = 6
-                        //this.checkHandType.CheckFullHouse(player, ref done, Straight, ref this.strongestHands, ref this.winningHand);
-                        //#endregion
+                        #region Full House current = 6
+                        this.checkHandType.CheckFullHouse(player, ref done, Straight, ref this.strongestHands, ref this.winningHand);
+                        #endregion
 
-                        //#region Four of a Kind current = 7
-                        //this.checkHandType.CheckFourOfAKind(player, Straight, ref this.strongestHands, ref this.winningHand);
-                        //#endregion
+                        #region Four of a Kind current = 7
+                        this.checkHandType.CheckFourOfAKind(player, Straight, ref this.strongestHands, ref this.winningHand);
+                        #endregion
 
-                        //#region Straight Flush current = 8 || 9
-                        //this.checkHandType.CheckStraightFlush(player, st1, st2, st3, st4, ref this.strongestHands, ref this.winningHand);
-                        //#endregion
+                        #region Straight Flush current = 8 || 9
+                        this.checkHandType.CheckStraightFlush(player, st1, st2, st3, st4, ref this.strongestHands, ref this.winningHand);
+                        #endregion
 
-                        //#region High Card current = -1
-                        //this.checkHandType.CheckHighCard(player, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
+                        #region High Card current = -1
+                        this.checkHandType.CheckHighCard(player, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
 
-                        //#endregion
+                        #endregion
                     }
                 }
             }
