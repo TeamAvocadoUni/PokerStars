@@ -16,7 +16,7 @@
 
         TextBox TextBoxChips { get; }
 
-        int Chips { get; }
+        int Chips { get; set; }
 
         int CallValue { get; }
 
@@ -26,9 +26,9 @@
 
         bool HasRaised { get; set; }
 
-        bool IsInTurn { get; }
+        bool IsInTurn { get; set; }
 
-        bool FoldTurn { get; }
+        bool FoldTurn { get; set; }
 
         bool IsInGame { get; }
 
