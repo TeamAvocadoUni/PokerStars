@@ -18,14 +18,16 @@ namespace Poker.Core
         public event EngineStateEvent EngineEvent;
 
         private HandClassificator handType = new HandClassificator();
-        //private CheckHandType checkHandType = new CheckHandType(); // To implement
+        // TODO: Implement logic for check type of hand
+        //private CheckHandType checkHandType = new CheckHandType(); 
         private ICharacter player;
         private IPokerManager pokerManager;
         private IDeck deck;
         private IList<ICharacter> bots;
         private bool changed;
         private int raisedTurn = 1;
-        //private List<Type> strongestHands = new List<Type>(); // To implement
+        // TODO: Implement logic to determine strongest hand
+        //private List<Type> strongestHands = new List<Type>(); 
         private bool hasRaisedPlayers;
         private Type winningHand;
         private int turnCount = 0;
@@ -71,7 +73,7 @@ namespace Poker.Core
 
         public async void Run()
         {
-            //await this.Shuffle(); // To fix
+            await this.Shuffle();
         }
 
         Task IGameEngine.Shuffle()
@@ -79,16 +81,11 @@ namespace Poker.Core
             return Shuffle();
         }
 
-        public void Rules(ICharacter character)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void InvokeGameEngineStateEvent(EngineStateEvent args)
+        private void InvokeEngineStateEvent(EngineEventArgs args)
         {
             if (this.EngineEvent != null)
             {
-                //this.EngineEvent(this, args); // To fix
+                this.EngineEvent(this, args);
             }
         }
 
@@ -106,25 +103,25 @@ namespace Poker.Core
 
         async Task Shuffle()
         {
-            //this.InvokeGameEngineStateEvent(new EngineStateEvent(GameEngineState.BeginShuffling));
+            this.InvokeEngineStateEvent(new EngineEventArgs(EngineStateType.Shuflling));
 
-            //await this.deck.SetAllCards(this.GetAllPlayers(), this.pokerManager);
+            await this.deck.SetAllCards(this.GetAllPlayers(), this.pokerManager);
 
 
-            //if (this.bots.Count(e => !e.IsInGame) == 5)
-            //{
-            //    DialogResult dialogResult = this.Message.ShowMessageBox(AppSettigns.PlayAgainMessage, AppSettigns.WinningMessage, MessageBoxButtons.YesNo);
-            //    if (dialogResult == DialogResult.Yes)
-            //    {
-            //        Application.Restart();
-            //    }
-            //    else if (dialogResult == DialogResult.No)
-            //    {
-            //        Application.Exit();
-            //    }
-            //}
+            if (this.bots.Count(e => !e.IsInGame) == 5)
+            {
+                DialogResult dialogResult = this.Message.ShowMessageBox(GameConstants.PlayAgainMessage, GameConstants.WinGameMessage, MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    Application.Restart();
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    Application.Exit();
+                }
+            }
 
-            //this.InvokeGameEngineStateEvent(new EngineStateEvent(GameEngineState.EndShuffling));
+            this.InvokeEngineStateEvent(new EngineEventArgs(EngineStateType.EndShuffling));
 
         }
 
@@ -133,160 +130,156 @@ namespace Poker.Core
             this.Call = this.BigBlind;
         }
 
-        //private async Task HandleAITurn(ICharacter currentAI, ICharacter nextAI)
-        //{
-        //    if (!currentAI.FoldTurn)
-        //    {
-        //        if (currentAI.IsInTurn)
-        //        {
-        //            FixCall(currentAI, 1);
-        //            FixCall(currentAI, 2);
-        //            Rules(currentAI);
-        //            this.Message.OutputMessage(currentAI.Name + AppSettigns.PlayerTurnMessage);
-        //            AI(currentAI);
-        //            turnCount++;
-        //            currentAI.IsInTurn = false;
-        //            nextAI.IsInTurn = true;
-        //        }
-        //    }
-        //    if (currentAI.FoldTurn && !currentAI.HasFolded)
-        //    {
-        //        currentAI.HasFolded = true;
-        //    }
-        //    if (currentAI.FoldTurn || !currentAI.IsInTurn)
-        //    {
-        //        await CheckRaise(currentAI.Id + 1);//, currentAI.Id + 1);
-        //        nextAI.IsInTurn = true;
-        //    }
-        //}
+        private async Task HandleAITurn(ICharacter currentAI, ICharacter nextAI)
+        {
+            if (!currentAI.FoldTurn)
+            {
+                if (currentAI.IsInTurn)
+                {
+                    FixCall(currentAI, 1);
+                    FixCall(currentAI, 2);
+                    Rules(currentAI);
+                    this.Message.OutputMessage(currentAI.Name + GameConstants.PlayerTurnMessage);
+                    AI(currentAI);
+                    turnCount++;
+                    currentAI.IsInTurn = false;
+                    nextAI.IsInTurn = true;
+                }
+            }
+            if (currentAI.FoldTurn && !currentAI.HasFolded)
+            {
+                currentAI.HasFolded = true;
+            }
+            if (currentAI.FoldTurn || !currentAI.IsInTurn)
+            {
+                await CheckRaise(currentAI.Id + 1);
+                nextAI.IsInTurn = true;
+            }
+        }
 
-        //public async Task Turns()
-        //{
-        //    #region Rotating
-        //    if (!player.FoldTurn)
-        //    {
-        //        if (player.IsInTurn)
-        //        {
-        //            FixCall(player, 1);
-        //            this.InvokeGameEngineStateEvent(new EngineStateEvent(GameEngineState.HumanTurn));
-        //            turnCount++;
-        //            FixCall(player, 2);
-        //        }
-        //    }
-        //    if (player.FoldTurn || !player.IsInTurn)
-        //    {
-        //        await AllIn();
-        //        await CheckRaise(0);//, 0);
-        //        this.InvokeGameEngineStateEvent(new EngineStateEvent(GameEngineState.AITurn));
-        //        this.bots.First().IsInTurn = true;
-        //        for (int i = 0; i < this.bots.Count; i++)
-        //        {
-        //            if (this.bots.Count - 1 == i)
-        //            {
-        //                await this.HandleAITurn(this.bots[i], this.player);
-        //            }
-        //            else
-        //            {
-        //                await this.HandleAITurn(this.bots[i], this.bots[i + 1]);
-        //            }
-        //        }
-        //        #endregion
+        public async Task Turns()
+        {
+            #region Rotating
+            if (!player.FoldTurn)
+            {
+                if (player.IsInTurn)
+                {
+                    FixCall(player, 1);
+                    this.InvokeEngineStateEvent(new EngineEventArgs(EngineStateType.PlayerTurn));
+                    turnCount++;
+                    FixCall(player, 2);
+                }
+            }
+            if (player.FoldTurn || !player.IsInTurn)
+            {
+                await AllIn();
+                await CheckRaise(0);
+                this.InvokeEngineStateEvent(new EngineEventArgs(EngineStateType.BotTurn));
+                this.bots.First().IsInTurn = true;
+                for (int i = 0; i < this.bots.Count; i++)
+                {
+                    if (this.bots.Count - 1 == i)
+                    {
+                        await this.HandleAITurn(this.bots[i], this.player);
+                    }
+                    else
+                    {
+                        await this.HandleAITurn(this.bots[i], this.bots[i + 1]);
+                    }
+                }
+                #endregion
 
-        //        await AllIn();
-        //        //if (!restart)
-        //        ////{
-        //        await Turns();
-        //        //}
-        //        //restart = false;
-        //    }
-        //}
+                await AllIn();
+                await Turns();
+            }
+        }
 
         private int GetFoldedPlayersCount(ICollection<ICharacter> players)
         {
             return players.Count(p => p.HasFolded == true);
         }
 
-        //public void Rules(ICharacter player)
-        //{
-        //    if (!player.FoldTurn)
-        //    {
-        //        #region Variables
+        public void Rules(ICharacter player)
+        {
+            if (!player.FoldTurn)
+            {
+                #region Variables
 
-        //        bool done = false;
-        //        bool vf = false;
-        //        int[] Straight1 = new int[5];
-        //        int[] Straight = new int[7];
-        //        Straight[0] = player.Cards.First().CardPower;
-        //        Straight[1] = player.Cards.Last().CardPower;
-        //        Straight1[0] = Straight[2] = this.pokerManager.Cards.ElementAt(0).CardPower;
-        //        Straight1[1] = Straight[3] = this.pokerManager.Cards.ElementAt(1).CardPower;
-        //        Straight1[2] = Straight[4] = this.pokerManager.Cards.ElementAt(2).CardPower;
-        //        Straight1[3] = Straight[5] = this.pokerManager.Cards.ElementAt(3).CardPower;
-        //        Straight1[4] = Straight[6] = this.pokerManager.Cards.ElementAt(4).CardPower;
-        //        var a = Straight.Where(o => o % 4 == 0).ToArray();
-        //        var b = Straight.Where(o => o % 4 == 1).ToArray();
-        //        var c = Straight.Where(o => o % 4 == 2).ToArray();
-        //        var d = Straight.Where(o => o % 4 == 3).ToArray();
-        //        var st1 = a.Select(o => o / 4).Distinct().ToArray();
-        //        var st2 = b.Select(o => o / 4).Distinct().ToArray();
-        //        var st3 = c.Select(o => o / 4).Distinct().ToArray();
-        //        var st4 = d.Select(o => o / 4).Distinct().ToArray();
-        //        Array.Sort(Straight);
-        //        Array.Sort(st1);
-        //        Array.Sort(st2);
-        //        Array.Sort(st3);
-        //        Array.Sort(st4);
+                bool done = false;
+                bool vf = false;
+                int[] Straight1 = new int[5];
+                int[] Straight = new int[7];
+                Straight[0] = player.Cards.First().CardPower;
+                Straight[1] = player.Cards.Last().CardPower;
+                Straight1[0] = Straight[2] = this.pokerManager.Cards.ElementAt(0).CardPower;
+                Straight1[1] = Straight[3] = this.pokerManager.Cards.ElementAt(1).CardPower;
+                Straight1[2] = Straight[4] = this.pokerManager.Cards.ElementAt(2).CardPower;
+                Straight1[3] = Straight[5] = this.pokerManager.Cards.ElementAt(3).CardPower;
+                Straight1[4] = Straight[6] = this.pokerManager.Cards.ElementAt(4).CardPower;
+                var a = Straight.Where(o => o % 4 == 0).ToArray();
+                var b = Straight.Where(o => o % 4 == 1).ToArray();
+                var c = Straight.Where(o => o % 4 == 2).ToArray();
+                var d = Straight.Where(o => o % 4 == 3).ToArray();
+                var st1 = a.Select(o => o / 4).Distinct().ToArray();
+                var st2 = b.Select(o => o / 4).Distinct().ToArray();
+                var st3 = c.Select(o => o / 4).Distinct().ToArray();
+                var st4 = d.Select(o => o / 4).Distinct().ToArray();
+                Array.Sort(Straight);
+                Array.Sort(st1);
+                Array.Sort(st2);
+                Array.Sort(st3);
+                Array.Sort(st4);
 
-        //        #endregion
+                #endregion
 
-        //        for (int i = 0; i < 16; i++)
-        //        {
-        //            if (this.deck.GetCardAtPosition(i).CardPower == player.Cards.First().CardPower && this.deck.GetCardAtPosition(i + 1).CardPower == player.Cards.Last().CardPower)
-        //            {
-        //                //TwoPair from Hand current = 1
+                for (int i = 0; i < 16; i++)
+                {
+                    if (this.deck.GetCardAtPosition(i).CardPower == player.Cards.First().CardPower && this.deck.GetCardAtPosition(i + 1).CardPower == player.Cards.Last().CardPower)
+                    {
+                        // TODO: 
 
-        //                this.checkHandType.CheckPairFromHand(player, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
+                        //this.checkHandType.CheckPairFromHand(player, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
 
-        //                #region TwoPair or Two TwoPair from Table current = 2 || 0
-        //                this.checkHandType.CheckPairTwoPair(player, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
+                        //#region TwoPair or Two TwoPair from Table current = 2 || 0
+                        //this.checkHandType.CheckPairTwoPair(player, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
 
-        //                #endregion
+                        //#endregion
 
-        //                #region Two TwoPair current = 2
-        //                #endregion
+                        //#region Two TwoPair current = 2
+                        //#endregion
 
-        //                #region Three of a kind current = 3
-        //                this.checkHandType.CheckThreeOfAKind(player, Straight, ref this.strongestHands, ref this.winningHand);
-        //                #endregion
+                        //#region Three of a kind current = 3
+                        //this.checkHandType.CheckThreeOfAKind(player, Straight, ref this.strongestHands, ref this.winningHand);
+                        //#endregion
 
-        //                #region Straight current = 4
-        //                this.checkHandType.CheckStraight(player, Straight, ref this.strongestHands, ref this.winningHand);
-        //                #endregion
+                        //#region Straight current = 4
+                        //this.checkHandType.CheckStraight(player, Straight, ref this.strongestHands, ref this.winningHand);
+                        //#endregion
 
-        //                #region Flush current = 5 || 5.5
-        //                this.checkHandType.CheckFlush(player, ref vf, Straight1, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
-        //                #endregion
+                        //#region Flush current = 5 || 5.5
+                        //this.checkHandType.CheckFlush(player, ref vf, Straight1, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
+                        //#endregion
 
-        //                #region Full House current = 6
-        //                this.checkHandType.CheckFullHouse(player, ref done, Straight, ref this.strongestHands, ref this.winningHand);
-        //                #endregion
+                        //#region Full House current = 6
+                        //this.checkHandType.CheckFullHouse(player, ref done, Straight, ref this.strongestHands, ref this.winningHand);
+                        //#endregion
 
-        //                #region Four of a Kind current = 7
-        //                this.checkHandType.CheckFourOfAKind(player, Straight, ref this.strongestHands, ref this.winningHand);
-        //                #endregion
+                        //#region Four of a Kind current = 7
+                        //this.checkHandType.CheckFourOfAKind(player, Straight, ref this.strongestHands, ref this.winningHand);
+                        //#endregion
 
-        //                #region Straight Flush current = 8 || 9
-        //                this.checkHandType.CheckStraightFlush(player, st1, st2, st3, st4, ref this.strongestHands, ref this.winningHand);
-        //                #endregion
+                        //#region Straight Flush current = 8 || 9
+                        //this.checkHandType.CheckStraightFlush(player, st1, st2, st3, st4, ref this.strongestHands, ref this.winningHand);
+                        //#endregion
 
-        //                #region High Card current = -1
-        //                this.checkHandType.CheckHighCard(player, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
+                        //#region High Card current = -1
+                        //this.checkHandType.CheckHighCard(player, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
 
-        //                #endregion
-        //            }
-        //        }
-        //    }
-        //}
+                        //#endregion
+                    }
+                }
+            }
+        }
 
         private ICollection<ICharacter> GetWinners(ICollection<ICharacter> players)
         {
@@ -297,10 +290,7 @@ namespace Poker.Core
                 {
                     if ((player.CharacterType.Current == this.winningHand.Current && player.CharacterType.Power == this.winningHand.Power) || this.GetNotFoldedPlayersCount(this.GetAllPlayers()) == 1)
                     {
-                        //if (player.CharacterType.Power == this.winningHand.Power)
-                        //{
                         winners.Add(player);
-                        //}
                     }
                 }
             }
@@ -378,7 +368,7 @@ namespace Poker.Core
                     player.ShowCardAtPosition(i);
                 }
 
-                //this.CheckWinner(player);
+                //this.CheckWinner(player); // This should be removed later
             }
 
             var winners = this.GetWinners(players);
@@ -411,7 +401,7 @@ namespace Poker.Core
             }
         }
 
-        async Task CheckRaise(int currentTurn)//, int raiseTurn)
+        async Task CheckRaise(int currentTurn)
         {
             if (hasRaisedPlayers)
             {
@@ -432,7 +422,7 @@ namespace Poker.Core
                         Call = 0;
                         raisedTurn = 123;
                         this.pokerManager.CurrentGameState++;
-                        //currentRound++;
+                        //currentRound++; // Should be removed later
                         foreach (var player in this.GetAllPlayers())
                         {
                             if (!player.FoldTurn)
@@ -483,7 +473,7 @@ namespace Poker.Core
             if (this.pokerManager.CurrentGameState == GameStateType.End && this.GetNotFoldedPlayersCount(this.GetAllPlayers()) == 6)
             {
                 await this.Finish(2);
-                //await Turns(); // To fix
+                await Turns(); 
             }
         }
 
@@ -528,16 +518,16 @@ namespace Poker.Core
                     }
                     if (player.CharacterStatus.Text.Contains("Check"))
                     {
-                        //player.RaiseAmount = 0;
+                        //player.RaiseAmount = 0; // This should be removed later
                         this.ResetCall(new List<ICharacter>() { player });
                         this.ResetRaise(new List<ICharacter>() { player });
-                        //player.CallAmount = 0;
+                        //player.CallAmount = 0; // This should be removed later
                     }
                 }
 
                 if (options == 2)
                 {
-                    if (player.RaiseValue < this.Raise)//!= RaiseAmount && player.RaiseAmount <= RaiseAmount)
+                    if (player.RaiseValue < this.Raise)
                     {
                        Call = Convert.ToInt32(Raise) - player.RaiseValue;
                     }
@@ -633,14 +623,14 @@ namespace Poker.Core
 
         async Task Finish(int n)
         {
-            //FixWinners(); // To fix
+            FixWinners();
 
             this.ResetForNextGame(this.player, this.bots);
             
-            //this.CheckPlayerChipsAmount(this.player); // To Fix
-            //this.ResetGameVariables(); // To fix
+            this.CheckPlayerChipsAmount(this.player);
+            this.ResetGameVariables();
             this.ClearCards(this.GetCardHolders());
-            //await Shuffle(); // To fix
+            await Shuffle();
         }
 
         private ICollection<ICardHolder> GetCardHolders()
@@ -651,110 +641,120 @@ namespace Poker.Core
             return cardHolders;
         }
 
-        //private void CheckPlayerChipsAmount(ICharacter player)
-        //{
-        //    if (player.Chips <= 0)
-        //    {
-        //        AddChips addChipsDialog = new AddChips();
-        //        addChipsDialog.ShowMessageBox();
-        //        if (addChipsDialog.Amount != 0)
-        //        {
-        //            this.AddChips(this.GetAllPlayers(), addChipsDialog.Amount);
-        //            player.FoldTurn = false;
-        //            player.IsInTurn = true;
-        //        }
-        //    }
-        //}
+        private void CheckPlayerChipsAmount(ICharacter player)
+        {
+            if (player.Chips <= 0)
+            {
+                AddChips addChipsDialog = new AddChips();
+                addChipsDialog.ShowDialog();
+                if (addChipsDialog.ChipsValue != 0)
+                {
+                    this.AddChips(this.GetAllPlayers(), addChipsDialog.ChipsValue);
+                    player.FoldTurn = false;
+                    player.IsInTurn = true;
+                }
+            }
+        }
 
-        //private void ResetGameVariables()
-        //{
-        //    this.strongestHands.Clear();
-        //    this.winningHand.Current = 0;
-        //    this.winningHand.Power = 0;
-        //    this.Bet.Clear();
-        //    this.SetDefaultCall();
-        //    this.pokerManager.CurrentGameState = 0;
-        //    Raise = 0;
-        //    hasRaisedPlayers = false;
-        //    raisedTurn = 1;
-        //    turnCount = 0;
-        //}
+        private void ResetGameVariables()
+        {
+            //this.strongestHands.Clear(); // TODO: Implement players's hand logic
+            this.winningHand.Current = 0;
+            this.winningHand.Power = 0;
+            this.Bet.Clear();
+            this.SetDefaultCall();
+            this.pokerManager.CurrentGameState = 0;
+            Raise = 0;
+            hasRaisedPlayers = false;
+            raisedTurn = 1;
+            turnCount = 0;
+        }
 
-        //void FixWinners()
-        //{
-        //    foreach (var player in this.GetAllPlayers())
-        //    {
-        //        if (!player.HasFolded)
-        //        {
-        //            Rules(player);
-        //        }
-        //    }
+        void FixWinners()
+        {
+            foreach (var player in this.GetAllPlayers())
+            {
+                if (!player.HasFolded)
+                {
+                    Rules(player);
+                }
+            }
 
-        //    this.CheckWinners(this.GetAllPlayers(), this.pokerManager);
-        //}
+            this.CheckWinners(this.GetAllPlayers(), this.pokerManager);
+        }
 
-        //void AI(ICharacter player)
-        //{
-        //    if (!player.FoldTurn)
-        //    {
-        //        if (player.CharacterType.Current == PokerHand.HighCard)
-        //        {
-        //            handType.HighCard(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
-        //        }
+        void AI(ICharacter player)
+        {
+            if (!player.FoldTurn)
+            {
+                if (player.CharacterType.Current == GameConstants.HighCard)
+                {
+                    // TODO: Implemnt HighCard logic
+                    //handType.HighCard(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                }
 
-        //        if (player.CharacterType.Current == PokerHand.PairTable)
-        //        {
-        //            handType.PairTable(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
-        //        }
+                if (player.CharacterType.Current == GameConstants.PairTable)
+                {
+                    // TODO: Implement PairHand logic
+                    //handType.PairTable(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                }
 
-        //        if (player.CharacterType.Current == PokerHand.PairFromHand)
-        //        {
-        //            handType.PairHand(player, Call, this.Bet, ref raise, ref hasRaisedPlayers, this.pokerManager.CurrentGameState);
-        //        }
+                if (player.CharacterType.Current == GameConstants.PairFromHand)
+                {
+                    // TODO: Implement PairHand logic
+                    //handType.PairHand(player, Call, this.Bet, ref raise, ref hasRaisedPlayers, this.pokerManager.CurrentGameState);
+                }
 
-        //        if (player.CharacterType.Current == PokerHand.TwoPair)
-        //        {
-        //            handType.TwoPair(player, Call, this.Bet, ref raise, ref hasRaisedPlayers, this.pokerManager.CurrentGameState);
-        //        }
+                if (player.CharacterType.Current == GameConstants.TwoPair)
+                {
+                    // TODO: Implement TwoPair logic
+                    //handType.TwoPair(player, Call, this.Bet, ref raise, ref hasRaisedPlayers, this.pokerManager.CurrentGameState);
+                }
 
-        //        if (player.CharacterType.Current == PokerHand.ThreeOfAKind)
-        //        {
-        //            handType.ThreeOfAKind(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
-        //        }
+                if (player.CharacterType.Current == GameConstants.ThreeOfAKind)
+                {
+                    // TODO: Implement ThreeOfAKind logic
+                    //handType.ThreeOfAKind(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                }
 
-        //        if (player.CharacterType.Current == PokerHand.Straigth)
-        //        {
-        //            handType.Straight(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
-        //        }
+                if (player.CharacterType.Current == GameConstants.Straigth)
+                {
+                    // TODO: Implement Straight logic
+                    //handType.Straight(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                }
 
-        //        if (player.CharacterType.Current == PokerHand.Flush || player.CharacterType.Current == PokerHand.FlushWithAce)
-        //        {
-        //            handType.Flush(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
-        //        }
+                if (player.CharacterType.Current == GameConstants.Flush || player.CharacterType.Current == GameConstants.FlushWithAce)
+                {
+                    // TODO: Implement Flush logic
+                    //handType.Flush(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                }
 
-        //        if (player.CharacterType.Current == PokerHand.FullHouse)
-        //        {
-        //            handType.FullHouse(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
-        //        }
+                if (player.CharacterType.Current == GameConstants.FullHouse)
+                {
+                    // TODO: Impleemnt FullHouse logic
+                    //handType.FullHouse(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                }
 
-        //        if (player.CharacterType.Current == PokerHand.FourOfAKind)
-        //        {
-        //            handType.FourOfAKind(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
-        //        }
+                if (player.CharacterType.Current == GameConstants.FourOfAKind)
+                {
+                    // TODO: Implement FourOfKind logic
+                    //handType.FourOfAKind(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                }
 
-        //        if (player.CharacterType.Current == PokerHand.StraightFlush || player.CharacterType.Current == PokerHand.RoyalFlush)
-        //        {
-        //            handType.StraightFlush(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
-        //        }
-        //    }
+                if (player.CharacterType.Current == GameConstants.StraightFlush || player.CharacterType.Current == GameConstants.RoyalFlush)
+                {
+                    // TODO: Implement method StraighFlush
+                    //handType.StraightFlush(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                }
+            }
 
-        //    if (player.FoldTurn)
-        //    {
-        //        foreach (var pictureBox in player.PictureBox)
-        //        {
-        //            pictureBox.Visible = false;
-        //        }
-        //    }
-        //}
+            if (player.FoldTurn)
+            {
+                foreach (var pictureBox in player.PictureBox)
+                {
+                    pictureBox.Visible = false;
+                }
+            }
+        }
     }
 }

@@ -7,18 +7,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Poker.Utils;
 
 namespace Poker
 {
     public partial class AddChips : Form
     {
-        public int a=0;
+        private int chipsValue;
+
         public AddChips()
         {
             FontFamily fontFamily = new FontFamily("Arial");
             InitializeComponent();
             ControlBox = false;
             label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+        }
+
+        public int ChipsValue
+        {
+            get
+            {
+                return this.chipsValue;
+            }
+
+            private set
+            {
+                if (value < 0 || value > GameConstants.ChipsMaxValue)
+                {
+                    throw new ArgumentOutOfRangeException(string.Format("Max value of chips should be in range [0...{0}].", GameConstants.ChipsMaxValue));
+                }
+
+                this.chipsValue = value;
+            }
         }
 
         public void button1_Click(object sender, EventArgs e)
@@ -37,7 +57,7 @@ namespace Poker
             }
             else if (int.TryParse(textBox1.Text, out parsedValue) && int.Parse(textBox1.Text) <= 100000000)
             {
-                a = int.Parse(textBox1.Text);
+                this.ChipsValue = int.Parse(textBox1.Text);
                 this.Close();
             }
         }

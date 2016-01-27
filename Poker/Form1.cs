@@ -1962,14 +1962,14 @@ namespace Poker
                 {
                     AddChips f2 = new AddChips();
                     f2.ShowDialog();
-                    if (f2.a != 0)
+                    if (f2.ChipsValue != 0)
                     {
-                        Chips = f2.a;
-                        bot1Chips += f2.a;
-                        bot2Chips += f2.a;
-                        bot3Chips += f2.a;
-                        bot4Chips += f2.a;
-                        bot5Chips += f2.a;
+                        Chips = f2.ChipsValue;
+                        bot1Chips += f2.ChipsValue;
+                        bot2Chips += f2.ChipsValue;
+                        bot3Chips += f2.ChipsValue;
+                        bot4Chips += f2.ChipsValue;
+                        bot5Chips += f2.ChipsValue;
                         PFturn = false;
                         Pturn = true;
                         bRaise.Enabled = true;
@@ -2226,14 +2226,14 @@ namespace Poker
             {
                 AddChips f2 = new AddChips();
                 f2.ShowDialog();
-                if (f2.a != 0)
+                if (f2.ChipsValue != 0)
                 {
-                    Chips = f2.a;
-                    bot1Chips += f2.a;
-                    bot2Chips += f2.a;
-                    bot3Chips += f2.a;
-                    bot4Chips += f2.a;
-                    bot5Chips += f2.a;
+                    Chips = f2.ChipsValue;
+                    bot1Chips += f2.ChipsValue;
+                    bot2Chips += f2.ChipsValue;
+                    bot3Chips += f2.ChipsValue;
+                    bot4Chips += f2.ChipsValue;
+                    bot5Chips += f2.ChipsValue;
                     PFturn = false;
                     Pturn = true;
                     bRaise.Enabled = true;

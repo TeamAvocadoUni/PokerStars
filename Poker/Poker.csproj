@@ -58,7 +58,7 @@
     <Compile Include="CustomMessages\Message.cs" />
     <Compile Include="Enums\EngineStateType.cs" />
     <Compile Include="Enums\GameStateType.cs" />
-    <Compile Include="Events\EngineEvent.cs" />
+    <Compile Include="Events\EngineEventArgs.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
