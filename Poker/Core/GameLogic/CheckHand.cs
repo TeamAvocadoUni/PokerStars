@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Poker.Enums;
-using Poker.Interfaces;
-using Poker.Models;
-
-namespace Poker.Core.GameLogic
+﻿namespace Poker.Core.GameLogic
 {
-    public class CheckHand
+    using System.Collections.Generic;
+    using System.Linq;
+    using Enums;
+    using Interfaces;
+    using Models;
+
+    public class CheckHand : ICheckHand
     {
         public void CheckStraightFlush(ICharacter player, int[] spades, int[] hearts, int[] diamonds, int[] clubs, ref List<Type> strongestHands, ref Type winningHand)
         {

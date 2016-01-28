@@ -1,8 +1,6 @@
 ﻿namespace Poker.Core.GameLogic
 {
-    using System.Security.Cryptography.X509Certificates;
-
-    using Poker.Interfaces;
+    using Interfaces;
 
     public class GameActions 
     {

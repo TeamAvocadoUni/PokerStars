@@ -8,17 +8,17 @@ namespace Poker.Core.GameLogic
     public class HandClassificator
     {
         private readonly GameActions actions;
-        private readonly Random random;
+        private readonly RandomNumberProvider random;
 
         public HandClassificator()
         {
             this.actions = new GameActions();
-            this.random = new Random();
+            this.random = new RandomNumberProvider();
         }
 
         public void HP(ICharacter character, int n, int n1, int call, ISingleBet pot, int raise)
         {
-            int randomInteger = this.random.Next(1, 4);
+            int randomInteger = this.random.GetRandomNumberInInterval(1, 4);
 
             if (call <= 0)
             {
@@ -80,7 +80,7 @@ namespace Poker.Core.GameLogic
 
         public void PH(ICharacter character, int n, int n1, int r, int call, ISingleBet bet, int raise,  GameStateType state)
         {
-            int rnd = this.random.Next(1, 3);
+            int rnd = this.random.GetRandomNumberInInterval(1, 3);
 
             if (state < GameStateType.Turn)
             {

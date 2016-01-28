@@ -17,38 +17,19 @@ namespace Poker.Core
     {
         public event EngineStateEvent EngineEvent;
         
-        private CheckHand checkHandType = new CheckHand(); 
         private ICharacter player;
         private IPokerManager pokerManager;
         private IDeck deck;
         private int raise;
         private IList<ICharacter> bots;
         private bool changed;
-        private int raisedTurn = 1;
+        private int raisedTurn;
         private List<Type> strongestHands = new List<Type>(); 
         private bool hasRaisedPlayers;
         private Type winningHand;
-        private int turnCount = 0;
+        private int turnCount;
 
-        public bool HasRaisedPlayers
-        {
-            get { return this.hasRaisedPlayers; }
-            set { this.hasRaisedPlayers = value; }
-        }
-
-        public int BigBlind { get; set; }
-
-        public int SmallBlind { get; set; }
-
-        public ISingleBet Bet{ get; private set; }
-
-        public int Call { get; set; }
-
-        public int Raise { get; set; }
-
-        public IMessage Message { get; set; }
-
-        public Engine(ICharacter player, ICollection<ICharacter> bots, ISingleBet bet, IPokerManager pokerManager, IDeck deck, IMessage message, IHandPower type)
+        public Engine(ICharacter player, ICollection<ICharacter> bots, ISingleBet bet, IPokerManager pokerManager, IDeck deck, IMessage message, IHandPower type, ICheckHand checkHandType)
         {
             this.player = player;
             this.bots = new List<ICharacter>(bots);
@@ -63,11 +44,31 @@ namespace Poker.Core
             this.Raise = 0;
             this.hasRaisedPlayers = false;
             this.ClassificattorType = type;
+            this.CheckHandType = checkHandType;
+            this.raisedTurn = 1;
         }
+
+        public bool HasRaisedPlayers
+        {
+            get { return this.hasRaisedPlayers; }
+            set { this.hasRaisedPlayers = value; }
+        }
+
+        public int BigBlind { get; set; }
+
+        public int SmallBlind { get; set; }
+
+        public ISingleBet Bet { get; private set; }
+
+        public int Call { get; set; }
+
+        public int Raise { get; set; }
+
+        public IMessage Message { get; set; }
 
         public IHandPower ClassificattorType { get; set; }
 
-        public IRandomNumberProvider RandomNumberProvider { get; set; }
+        public ICheckHand CheckHandType { get; set; }
 
         public ICharacter GetHumanPlayer()
         {
@@ -109,8 +110,7 @@ namespace Poker.Core
             this.InvokeEngineStateEvent(new EngineEventArgs(EngineStateType.Shuflling));
 
             await this.deck.SetAllCards(this.GetAllPlayers(), this.pokerManager);
-
-
+            
             if (this.bots.Count(e => !e.IsInGame) == 5)
             {
                 DialogResult dialogResult = this.Message.ShowMessageBox(GameConstants.PlayAgainMessage, GameConstants.WinGameMessage, MessageBoxButtons.YesNo);
@@ -239,45 +239,41 @@ namespace Poker.Core
                 {
                     if (this.deck.GetCardAtPosition(i).CardPower == player.Cards.First().CardPower && this.deck.GetCardAtPosition(i + 1).CardPower == player.Cards.Last().CardPower)
                     {
-                        
-
-                        this.checkHandType.CheckPairFromHand(player, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
+                        this.CheckHandType.CheckPairFromHand(player, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
 
                         #region TwoPair or Two TwoPair from Table current = 2 || 0
-                        this.checkHandType.CheckPairTwoPair(player, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
-
+                        this.CheckHandType.CheckPairTwoPair(player, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
                         #endregion
 
                         #region Two TwoPair current = 2
                         #endregion
 
                         #region Three of a kind current = 3
-                        this.checkHandType.CheckThreeOfAKind(player, Straight, ref this.strongestHands, ref this.winningHand);
+                        this.CheckHandType.CheckThreeOfAKind(player, Straight, ref this.strongestHands, ref this.winningHand);
                         #endregion
 
                         #region Straight current = 4
-                        this.checkHandType.CheckStraight(player, Straight, ref this.strongestHands, ref this.winningHand);
+                        this.CheckHandType.CheckStraight(player, Straight, ref this.strongestHands, ref this.winningHand);
                         #endregion
 
                         #region Flush current = 5 || 5.5
-                        this.checkHandType.CheckFlush(player, ref vf, Straight1, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
+                        this.CheckHandType.CheckFlush(player, ref vf, Straight1, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
                         #endregion
 
                         #region Full House current = 6
-                        this.checkHandType.CheckFullHouse(player, ref done, Straight, ref this.strongestHands, ref this.winningHand);
+                        this.CheckHandType.CheckFullHouse(player, ref done, Straight, ref this.strongestHands, ref this.winningHand);
                         #endregion
 
                         #region Four of a Kind current = 7
-                        this.checkHandType.CheckFourOfAKind(player, Straight, ref this.strongestHands, ref this.winningHand);
+                        this.CheckHandType.CheckFourOfAKind(player, Straight, ref this.strongestHands, ref this.winningHand);
                         #endregion
 
                         #region Straight Flush current = 8 || 9
-                        this.checkHandType.CheckStraightFlush(player, st1, st2, st3, st4, ref this.strongestHands, ref this.winningHand);
+                        this.CheckHandType.CheckStraightFlush(player, st1, st2, st3, st4, ref this.strongestHands, ref this.winningHand);
                         #endregion
 
                         #region High Card current = -1
-                        this.checkHandType.CheckHighCard(player, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
-
+                        this.CheckHandType.CheckHighCard(player, ref this.strongestHands, ref this.winningHand, this.deck.GetAllCards(), i);
                         #endregion
                     }
                 }

@@ -72,6 +72,7 @@
     <Compile Include="Interfaces\ICardHolder.cs" />
     <Compile Include="Interfaces\ICharacter.cs" />
     <Compile Include="Interfaces\ICharacterFactory.cs" />
+    <Compile Include="Interfaces\ICheckHand.cs" />
     <Compile Include="Interfaces\IDeck.cs" />
     <Compile Include="Interfaces\IGameAction.cs" />
     <Compile Include="Interfaces\IGameEngine.cs" />
@@ -88,7 +89,7 @@
     <Compile Include="Models\Character\Player.cs" />
     <Compile Include="Models\Character\SingleBet.cs" />
     <Compile Include="Models\PokerManager.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="MainProgram.cs" />
     <Compile Include="ProgressBars.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Type.cs" />
