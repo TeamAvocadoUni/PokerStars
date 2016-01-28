@@ -107,52 +107,51 @@
 
         public Game()
         {
-            //bools.Add(PFturn); bools.Add(B1Fturn); bools.Add(B2Fturn); bools.Add(B3Fturn); bools.Add(B4Fturn); bools.Add(B5Fturn);
             call = bb;
             MaximizeBox = false;
             MinimizeBox = false;
             Updates.Start();
             InitializeComponent();
             Shuffle();
-            tbPot.Enabled = false;
-            tbChips.Enabled = false;
-            tbBotChips1.Enabled = false;
-            tbBotChips2.Enabled = false;
-            tbBotChips3.Enabled = false;
-            tbBotChips4.Enabled = false;
-            tbBotChips5.Enabled = false;
-            tbChips.Text = "Chips : " + Chips;
-            tbBotChips1.Text = "Chips : " + bot1Chips;
-            tbBotChips2.Text = "Chips : " + bot2Chips;
-            tbBotChips3.Text = "Chips : " + bot3Chips;
-            tbBotChips4.Text = "Chips : " + bot4Chips;
-            tbBotChips5.Text = "Chips : " + bot5Chips;
+            textBoxGamePot.Enabled = false;
+            textBoxAddChips.Enabled = false;
+            textBoxBot1Chips.Enabled = false;
+            textBoxBot2Chips.Enabled = false;
+            textBoxBot3Chips.Enabled = false;
+            textBoxBot4Chips.Enabled = false;
+            textBoxBot5Chips.Enabled = false;
+            textBoxAddChips.Text = "Chips : " + Chips;
+            textBoxBot1Chips.Text = "Chips : " + bot1Chips;
+            textBoxBot2Chips.Text = "Chips : " + bot2Chips;
+            textBoxBot3Chips.Text = "Chips : " + bot3Chips;
+            textBoxBot4Chips.Text = "Chips : " + bot4Chips;
+            textBoxBot5Chips.Text = "Chips : " + bot5Chips;
             timer.Interval = (1 * 1 * 1000);
             timer.Tick += timer_Tick;
             Updates.Interval = (1 * 1 * 100);
             Updates.Tick += Update_Tick;
-            tbBB.Visible = true;
-            tbSB.Visible = true;
-            bBB.Visible = true;
-            bSB.Visible = true;
-            tbBB.Visible = true;
-            tbSB.Visible = true;
-            bBB.Visible = true;
-            bSB.Visible = true;
-            tbBB.Visible = false;
-            tbSB.Visible = false;
-            bBB.Visible = false;
-            bSB.Visible = false;
-            tbRaise.Text = (bb * 2).ToString();
+            textBoxBigBlind.Visible = true;
+            textBoxSmallBlind.Visible = true;
+            buttonBigBlind.Visible = true;
+            buttonSmallBlind.Visible = true;
+            textBoxBigBlind.Visible = true;
+            textBoxSmallBlind.Visible = true;
+            buttonBigBlind.Visible = true;
+            buttonSmallBlind.Visible = true;
+            textBoxBigBlind.Visible = false;
+            textBoxSmallBlind.Visible = false;
+            buttonBigBlind.Visible = false;
+            buttonSmallBlind.Visible = false;
+            textBoxRaise.Text = (bb * 2).ToString();
         }
 
         async Task Shuffle()
         {
             bools.Add(PFturn); bools.Add(B1Fturn); bools.Add(B2Fturn); bools.Add(B3Fturn); bools.Add(B4Fturn); bools.Add(B5Fturn);
-            bCall.Enabled = false;
-            bRaise.Enabled = false;
-            bFold.Enabled = false;
-            bCheck.Enabled = false;
+            buttonCall.Enabled = false;
+            buttonRaise.Enabled = false;
+            buttonFold.Enabled = false;
+            buttonCheck.Enabled = false;
             MaximizeBox = false;
             MinimizeBox = false;
             bool check = false;
@@ -518,11 +517,11 @@
             }
             if (i == 17)
             {
-                bRaise.Enabled = true;
-                bCall.Enabled = true;
-                bRaise.Enabled = true;
-                bRaise.Enabled = true;
-                bFold.Enabled = true;
+                buttonRaise.Enabled = true;
+                buttonCall.Enabled = true;
+                buttonRaise.Enabled = true;
+                buttonRaise.Enabled = true;
+                buttonFold.Enabled = true;
             }
         }
         async Task Turns()
@@ -532,20 +531,20 @@
             {
                 if (Pturn)
                 {
-                    FixCall(pStatus, ref pCall, ref pRaise, 1);
+                    FixCall(playerStatus, ref pCall, ref pRaise, 1);
                     //MessageBox.Show("Player's Turn");
-                    pbTimer.Visible = true;
-                    pbTimer.Value = 1000;
+                    progressbarTimer.Visible = true;
+                    progressbarTimer.Value = 1000;
                     t = 60;
                     up = 10000000;
                     timer.Start();
-                    bRaise.Enabled = true;
-                    bCall.Enabled = true;
-                    bRaise.Enabled = true;
-                    bRaise.Enabled = true;
-                    bFold.Enabled = true;
+                    buttonRaise.Enabled = true;
+                    buttonCall.Enabled = true;
+                    buttonRaise.Enabled = true;
+                    buttonRaise.Enabled = true;
+                    buttonFold.Enabled = true;
                     turnCount++;
-                    FixCall(pStatus, ref pCall, ref pRaise, 2);
+                    FixCall(playerStatus, ref pCall, ref pRaise, 2);
                 }
             }
             if (PFturn || !Pturn)
@@ -553,7 +552,7 @@
                 await AllIn();
                 if (PFturn && !pFolded)
                 {
-                    if (bCall.Text.Contains("All in") == false || bRaise.Text.Contains("All in") == false)
+                    if (buttonCall.Text.Contains("All in") == false || buttonRaise.Text.Contains("All in") == false)
                     {
                         bools.RemoveAt(0);
                         bools.Insert(0, null);
@@ -562,23 +561,23 @@
                     }
                 }
                 await CheckRaise(0, 0);
-                pbTimer.Visible = false;
-                bRaise.Enabled = false;
-                bCall.Enabled = false;
-                bRaise.Enabled = false;
-                bRaise.Enabled = false;
-                bFold.Enabled = false;
+                progressbarTimer.Visible = false;
+                buttonRaise.Enabled = false;
+                buttonCall.Enabled = false;
+                buttonRaise.Enabled = false;
+                buttonRaise.Enabled = false;
+                buttonFold.Enabled = false;
                 timer.Stop();
                 B1turn = true;
                 if (!B1Fturn)
                 {
                     if (B1turn)
                     {
-                        FixCall(b1Status, ref b1Call, ref b1Raise, 1);
-                        FixCall(b1Status, ref b1Call, ref b1Raise, 2);
+                        FixCall(bot1Status, ref b1Call, ref b1Raise, 1);
+                        FixCall(bot1Status, ref b1Call, ref b1Raise, 2);
                         Rules(2, 3, "Bot 1", ref b1Type, ref b1Power, B1Fturn);
                         MessageBox.Show("Bot 1's Turn");
-                        AI(2, 3, ref bot1Chips, ref B1turn, ref  B1Fturn, b1Status, 0, b1Power, b1Type);
+                        AI(2, 3, ref bot1Chips, ref B1turn, ref  B1Fturn, bot1Status, 0, b1Power, b1Type);
                         turnCount++;
                         last = 1;
                         B1turn = false;
@@ -601,11 +600,11 @@
                 {
                     if (B2turn)
                     {
-                        FixCall(b2Status, ref b2Call, ref b2Raise, 1);
-                        FixCall(b2Status, ref b2Call, ref b2Raise, 2);
+                        FixCall(bot2Status, ref b2Call, ref b2Raise, 1);
+                        FixCall(bot2Status, ref b2Call, ref b2Raise, 2);
                         Rules(4, 5, "Bot 2", ref b2Type, ref b2Power, B2Fturn);
                         MessageBox.Show("Bot 2's Turn");
-                        AI(4, 5, ref bot2Chips, ref B2turn, ref  B2Fturn, b2Status, 1, b2Power, b2Type);
+                        AI(4, 5, ref bot2Chips, ref B2turn, ref  B2Fturn, bot2Status, 1, b2Power, b2Type);
                         turnCount++;
                         last = 2;
                         B2turn = false;
@@ -628,11 +627,11 @@
                 {
                     if (B3turn)
                     {
-                        FixCall(b3Status, ref b3Call, ref b3Raise, 1);
-                        FixCall(b3Status, ref b3Call, ref b3Raise, 2);
+                        FixCall(bot3Status, ref b3Call, ref b3Raise, 1);
+                        FixCall(bot3Status, ref b3Call, ref b3Raise, 2);
                         Rules(6, 7, "Bot 3", ref b3Type, ref b3Power, B3Fturn);
                         MessageBox.Show("Bot 3's Turn");
-                        AI(6, 7, ref bot3Chips, ref B3turn, ref  B3Fturn, b3Status, 2, b3Power, b3Type);
+                        AI(6, 7, ref bot3Chips, ref B3turn, ref  B3Fturn, bot3Status, 2, b3Power, b3Type);
                         turnCount++;
                         last = 3;
                         B3turn = false;
@@ -655,11 +654,11 @@
                 {
                     if (B4turn)
                     {
-                        FixCall(b4Status, ref b4Call, ref b4Raise, 1);
-                        FixCall(b4Status, ref b4Call, ref b4Raise, 2);
+                        FixCall(bot4Status, ref b4Call, ref b4Raise, 1);
+                        FixCall(bot4Status, ref b4Call, ref b4Raise, 2);
                         Rules(8, 9, "Bot 4", ref b4Type, ref b4Power, B4Fturn);
                         MessageBox.Show("Bot 4's Turn");
-                        AI(8, 9, ref bot4Chips, ref B4turn, ref  B4Fturn, b4Status, 3, b4Power, b4Type);
+                        AI(8, 9, ref bot4Chips, ref B4turn, ref  B4Fturn, bot4Status, 3, b4Power, b4Type);
                         turnCount++;
                         last = 4;
                         B4turn = false;
@@ -682,11 +681,11 @@
                 {
                     if (B5turn)
                     {
-                        FixCall(b5Status, ref b5Call, ref b5Raise, 1);
-                        FixCall(b5Status, ref b5Call, ref b5Raise, 2);
+                        FixCall(bot5Status, ref b5Call, ref b5Raise, 1);
+                        FixCall(bot5Status, ref b5Call, ref b5Raise, 2);
                         Rules(10, 11, "Bot 5", ref b5Type, ref b5Power, B5Fturn);
                         MessageBox.Show("Bot 5's Turn");
-                        AI(10, 11, ref bot5Chips, ref B5turn, ref  B5Fturn, b5Status, 4, b5Power, b5Type);
+                        AI(10, 11, ref bot5Chips, ref B5turn, ref  B5Fturn, bot5Status, 4, b5Power, b5Type);
                         turnCount++;
                         last = 5;
                         B5turn = false;
@@ -706,7 +705,7 @@
                 }
                 if (PFturn && !pFolded)
                 {
-                    if (bCall.Text.Contains("All in") == false || bRaise.Text.Contains("All in") == false)
+                    if (buttonCall.Text.Contains("All in") == false || buttonRaise.Text.Contains("All in") == false)
                     {
                         bools.RemoveAt(0);
                         bools.Insert(0, null);
@@ -729,7 +728,7 @@
             if (c1 == 0 && c2 == 1)
             {
             }
-            if (!foldedTurn || c1 == 0 && c2 == 1 && pStatus.Text.Contains("Fold") == false)
+            if (!foldedTurn || c1 == 0 && c2 == 1 && playerStatus.Text.Contains("Fold") == false)
             {
                 #region Variables
                 bool done = false, vf = false;
@@ -1805,39 +1804,39 @@
                 {
                     if (CheckWinners.Contains("Player"))
                     {
-                        Chips += int.Parse(tbPot.Text) / winners;
-                        tbChips.Text = Chips.ToString();
+                        Chips += int.Parse(textBoxGamePot.Text) / winners;
+                        textBoxAddChips.Text = Chips.ToString();
                         //playerPanel.Visible = true;
 
                     }
                     if (CheckWinners.Contains("Bot 1"))
                     {
-                        bot1Chips += int.Parse(tbPot.Text) / winners;
-                        tbBotChips1.Text = bot1Chips.ToString();
+                        bot1Chips += int.Parse(textBoxGamePot.Text) / winners;
+                        textBoxBot1Chips.Text = bot1Chips.ToString();
                         //bot1Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 2"))
                     {
-                        bot2Chips += int.Parse(tbPot.Text) / winners;
-                        tbBotChips2.Text = bot2Chips.ToString();
+                        bot2Chips += int.Parse(textBoxGamePot.Text) / winners;
+                        textBoxBot2Chips.Text = bot2Chips.ToString();
                         //bot2Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 3"))
                     {
-                        bot3Chips += int.Parse(tbPot.Text) / winners;
-                        tbBotChips3.Text = bot3Chips.ToString();
+                        bot3Chips += int.Parse(textBoxGamePot.Text) / winners;
+                        textBoxBot3Chips.Text = bot3Chips.ToString();
                         //bot3Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 4"))
                     {
-                        bot4Chips += int.Parse(tbPot.Text) / winners;
-                        tbBotChips4.Text = bot4Chips.ToString();
+                        bot4Chips += int.Parse(textBoxGamePot.Text) / winners;
+                        textBoxBot4Chips.Text = bot4Chips.ToString();
                         //bot4Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 5"))
                     {
-                        bot5Chips += int.Parse(tbPot.Text) / winners;
-                        tbBotChips5.Text = bot5Chips.ToString();
+                        bot5Chips += int.Parse(textBoxGamePot.Text) / winners;
+                        textBoxBot5Chips.Text = bot5Chips.ToString();
                         //bot5Panel.Visible = true;
                     }
                     //await Finish(1);
@@ -1846,38 +1845,38 @@
                 {
                     if (CheckWinners.Contains("Player"))
                     {
-                        Chips += int.Parse(tbPot.Text);
+                        Chips += int.Parse(textBoxGamePot.Text);
                         //await Finish(1);
                         //playerPanel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 1"))
                     {
-                        bot1Chips += int.Parse(tbPot.Text);
+                        bot1Chips += int.Parse(textBoxGamePot.Text);
                         //await Finish(1);
                         //bot1Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 2"))
                     {
-                        bot2Chips += int.Parse(tbPot.Text);
+                        bot2Chips += int.Parse(textBoxGamePot.Text);
                         //await Finish(1);
                         //bot2Panel.Visible = true;
 
                     }
                     if (CheckWinners.Contains("Bot 3"))
                     {
-                        bot3Chips += int.Parse(tbPot.Text);
+                        bot3Chips += int.Parse(textBoxGamePot.Text);
                         //await Finish(1);
                         //bot3Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 4"))
                     {
-                        bot4Chips += int.Parse(tbPot.Text);
+                        bot4Chips += int.Parse(textBoxGamePot.Text);
                         //await Finish(1);
                         //bot4Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 5"))
                     {
-                        bot5Chips += int.Parse(tbPot.Text);
+                        bot5Chips += int.Parse(textBoxGamePot.Text);
                         //await Finish(1);
                         //bot5Panel.Visible = true;
                     }
@@ -1906,17 +1905,17 @@
                         raisedTurn = 123;
                         rounds++;
                         if (!PFturn)
-                            pStatus.Text = "";
+                            playerStatus.Text = "";
                         if (!B1Fturn)
-                            b1Status.Text = "";
+                            bot1Status.Text = "";
                         if (!B2Fturn)
-                            b2Status.Text = "";
+                            bot2Status.Text = "";
                         if (!B3Fturn)
-                            b3Status.Text = "";
+                            bot3Status.Text = "";
                         if (!B4Fturn)
-                            b4Status.Text = "";
+                            bot4Status.Text = "";
                         if (!B5Fturn)
-                            b5Status.Text = "";
+                            bot5Status.Text = "";
                     }
                 }
             }
@@ -1971,32 +1970,32 @@
             if (rounds == End && maxLeft == 6)
             {
                 string fixedLast = "qwerty";
-                if (!pStatus.Text.Contains("Fold"))
+                if (!playerStatus.Text.Contains("Fold"))
                 {
                     fixedLast = "Player";
                     Rules(0, 1, "Player", ref pType, ref pPower, PFturn);
                 }
-                if (!b1Status.Text.Contains("Fold"))
+                if (!bot1Status.Text.Contains("Fold"))
                 {
                     fixedLast = "Bot 1";
                     Rules(2, 3, "Bot 1", ref b1Type, ref b1Power, B1Fturn);
                 }
-                if (!b2Status.Text.Contains("Fold"))
+                if (!bot2Status.Text.Contains("Fold"))
                 {
                     fixedLast = "Bot 2";
                     Rules(4, 5, "Bot 2", ref b2Type, ref b2Power, B2Fturn);
                 }
-                if (!b3Status.Text.Contains("Fold"))
+                if (!bot3Status.Text.Contains("Fold"))
                 {
                     fixedLast = "Bot 3";
                     Rules(6, 7, "Bot 3", ref b3Type, ref b3Power, B3Fturn);
                 }
-                if (!b4Status.Text.Contains("Fold"))
+                if (!bot4Status.Text.Contains("Fold"))
                 {
                     fixedLast = "Bot 4";
                     Rules(8, 9, "Bot 4", ref b4Type, ref b4Power, B4Fturn);
                 }
-                if (!b5Status.Text.Contains("Fold"))
+                if (!bot5Status.Text.Contains("Fold"))
                 {
                     fixedLast = "Bot 5";
                     Rules(10, 11, "Bot 5", ref b5Type, ref b5Power, B5Fturn);
@@ -2029,10 +2028,10 @@
                         bot5Chips += f2.ChipsValue;
                         PFturn = false;
                         Pturn = true;
-                        bRaise.Enabled = true;
-                        bFold.Enabled = true;
-                        bCheck.Enabled = true;
-                        bRaise.Text = "Raise";
+                        buttonRaise.Enabled = true;
+                        buttonFold.Enabled = true;
+                        buttonCheck.Enabled = true;
+                        buttonRaise.Text = "Raise";
                     }
                 }
                 playerPanel.Visible = false; bot1Panel.Visible = false; bot2Panel.Visible = false; bot3Panel.Visible = false; bot4Panel.Visible = false; bot5Panel.Visible = false;
@@ -2063,8 +2062,8 @@
                     Holder[os].Invalidate();
                     Holder[os].Visible = false;
                 }
-                tbPot.Text = "0";
-                pStatus.Text = "";
+                textBoxGamePot.Text = "0";
+                playerStatus.Text = "";
                 await Shuffle();
                 await Turns();
             }
@@ -2104,8 +2103,8 @@
                     if (cRaise == Raise && Raise > 0)
                     {
                         call = 0;
-                        bCall.Enabled = false;
-                        bCall.Text = "Callisfuckedup";
+                        buttonCall.Enabled = false;
+                        buttonCall.Text = "Callisfuckedup";
                     }
                 }
             }
@@ -2115,12 +2114,12 @@
             #region All in
             if (Chips <= 0 && !intsadded)
             {
-                if (pStatus.Text.Contains("Raise"))
+                if (playerStatus.Text.Contains("Raise"))
                 {
                     ints.Add(Chips);
                     intsadded = true;
                 }
-                if (pStatus.Text.Contains("Call"))
+                if (playerStatus.Text.Contains("Call"))
                 {
                     ints.Add(Chips);
                     intsadded = true;
@@ -2189,43 +2188,43 @@
                 int index = bools.IndexOf(false);
                 if (index == 0)
                 {
-                    Chips += int.Parse(tbPot.Text);
-                    tbChips.Text = Chips.ToString();
+                    Chips += int.Parse(textBoxGamePot.Text);
+                    textBoxAddChips.Text = Chips.ToString();
                     playerPanel.Visible = true;
                     MessageBox.Show("Player Wins");
                 }
                 if (index == 1)
                 {
-                    bot1Chips += int.Parse(tbPot.Text);
-                    tbChips.Text = bot1Chips.ToString();
+                    bot1Chips += int.Parse(textBoxGamePot.Text);
+                    textBoxAddChips.Text = bot1Chips.ToString();
                     bot1Panel.Visible = true;
                     MessageBox.Show("Bot 1 Wins");
                 }
                 if (index == 2)
                 {
-                    bot2Chips += int.Parse(tbPot.Text);
-                    tbChips.Text = bot2Chips.ToString();
+                    bot2Chips += int.Parse(textBoxGamePot.Text);
+                    textBoxAddChips.Text = bot2Chips.ToString();
                     bot2Panel.Visible = true;
                     MessageBox.Show("Bot 2 Wins");
                 }
                 if (index == 3)
                 {
-                    bot3Chips += int.Parse(tbPot.Text);
-                    tbChips.Text = bot3Chips.ToString();
+                    bot3Chips += int.Parse(textBoxGamePot.Text);
+                    textBoxAddChips.Text = bot3Chips.ToString();
                     bot3Panel.Visible = true;
                     MessageBox.Show("Bot 3 Wins");
                 }
                 if (index == 4)
                 {
-                    bot4Chips += int.Parse(tbPot.Text);
-                    tbChips.Text = bot4Chips.ToString();
+                    bot4Chips += int.Parse(textBoxGamePot.Text);
+                    textBoxAddChips.Text = bot4Chips.ToString();
                     bot4Panel.Visible = true;
                     MessageBox.Show("Bot 4 Wins");
                 }
                 if (index == 5)
                 {
-                    bot5Chips += int.Parse(tbPot.Text);
-                    tbChips.Text = bot5Chips.ToString();
+                    bot5Chips += int.Parse(textBoxGamePot.Text);
+                    textBoxAddChips.Text = bot5Chips.ToString();
                     bot5Panel.Visible = true;
                     MessageBox.Show("Bot 5 Wins");
                 }
@@ -2270,14 +2269,14 @@
             Win.Clear();
             sorted.Current = 0;
             sorted.Power = 0;
-            tbPot.Text = "0";
+            textBoxGamePot.Text = "0";
             t = 60; up = 10000000; turnCount = 0;
-            pStatus.Text = "";
-            b1Status.Text = "";
-            b2Status.Text = "";
-            b3Status.Text = "";
-            b4Status.Text = "";
-            b5Status.Text = "";
+            playerStatus.Text = "";
+            bot1Status.Text = "";
+            bot2Status.Text = "";
+            bot3Status.Text = "";
+            bot4Status.Text = "";
+            bot5Status.Text = "";
             if (Chips <= 0)
             {
                 AddChips f2 = new AddChips();
@@ -2292,10 +2291,10 @@
                     bot5Chips += f2.ChipsValue;
                     PFturn = false;
                     Pturn = true;
-                    bRaise.Enabled = true;
-                    bFold.Enabled = true;
-                    bCheck.Enabled = true;
-                    bRaise.Text = "Raise";
+                    buttonRaise.Enabled = true;
+                    buttonFold.Enabled = true;
+                    buttonCheck.Enabled = true;
+                    buttonRaise.Text = "Raise";
                 }
             }
             ImgLocation = Directory.GetFiles(GameConstants.ImagePath, GameConstants.AllImageFileExtension, SearchOption.TopDirectoryOnly);
@@ -2314,32 +2313,32 @@
             sorted.Current = 0;
             sorted.Power = 0;
             string fixedLast = "qwerty";
-            if (!pStatus.Text.Contains("Fold"))
+            if (!playerStatus.Text.Contains("Fold"))
             {
                 fixedLast = "Player";
                 Rules(0, 1, "Player", ref pType, ref pPower, PFturn);
             }
-            if (!b1Status.Text.Contains("Fold"))
+            if (!bot1Status.Text.Contains("Fold"))
             {
                 fixedLast = "Bot 1";
                 Rules(2, 3, "Bot 1", ref b1Type, ref b1Power, B1Fturn);
             }
-            if (!b2Status.Text.Contains("Fold"))
+            if (!bot2Status.Text.Contains("Fold"))
             {
                 fixedLast = "Bot 2";
                 Rules(4, 5, "Bot 2", ref b2Type, ref b2Power, B2Fturn);
             }
-            if (!b3Status.Text.Contains("Fold"))
+            if (!bot3Status.Text.Contains("Fold"))
             {
                 fixedLast = "Bot 3";
                 Rules(6, 7, "Bot 3", ref b3Type, ref b3Power, B3Fturn);
             }
-            if (!b4Status.Text.Contains("Fold"))
+            if (!bot4Status.Text.Contains("Fold"))
             {
                 fixedLast = "Bot 4";
                 Rules(8, 9, "Bot 4", ref b4Type, ref b4Power, B4Fturn);
             }
-            if (!b5Status.Text.Contains("Fold"))
+            if (!bot5Status.Text.Contains("Fold"))
             {
                 fixedLast = "Bot 5";
                 Rules(10, 11, "Bot 5", ref b5Type, ref b5Power, B5Fturn);
@@ -2543,13 +2542,13 @@
             sTurn = false;
             sChips -= call;
             sStatus.Text = "Call " + call;
-            tbPot.Text = (int.Parse(tbPot.Text) + call).ToString();
+            textBoxGamePot.Text = (int.Parse(textBoxGamePot.Text) + call).ToString();
         }
         private void Raised(ref int sChips, ref bool sTurn, Label sStatus)
         {
             sChips -= Convert.ToInt32(Raise);
             sStatus.Text = "Raise " + Raise;
-            tbPot.Text = (int.Parse(tbPot.Text) + Convert.ToInt32(Raise)).ToString();
+            textBoxGamePot.Text = (int.Parse(textBoxGamePot.Text) + Convert.ToInt32(Raise)).ToString();
             call = Convert.ToInt32(Raise);
             raising = true;
             sTurn = false;
@@ -2734,7 +2733,7 @@
                         botTurn = false;
                         botChips = 0;
                         botStatus.Text = "Call " + botChips;
-                        tbPot.Text = (int.Parse(tbPot.Text) + botChips).ToString();
+                        textBoxGamePot.Text = (int.Parse(textBoxGamePot.Text) + botChips).ToString();
                     }
                 }
                 else
@@ -2767,7 +2766,7 @@
         #region UI
         private async void timer_Tick(object sender, object e)
         {
-            if (pbTimer.Value <= 0)
+            if (progressbarTimer.Value <= 0)
             {
                 PFturn = true;
                 await Turns();
@@ -2775,49 +2774,49 @@
             if (t > 0)
             {
                 t--;
-                pbTimer.Value = (t / 6) * 100;
+                progressbarTimer.Value = (t / 6) * 100;
             }
         }
         private void Update_Tick(object sender, object e)
         {
             if (Chips <= 0)
             {
-                tbChips.Text = "Chips : 0";
+                playerChips.Text = "Chips : 0";
             }
             if (bot1Chips <= 0)
             {
-                tbBotChips1.Text = "Chips : 0";
+                textBoxBot1Chips.Text = "Chips : 0";
             }
             if (bot2Chips <= 0)
             {
-                tbBotChips2.Text = "Chips : 0";
+                textBoxBot2Chips.Text = "Chips : 0";
             }
             if (bot3Chips <= 0)
             {
-                tbBotChips3.Text = "Chips : 0";
+                textBoxBot3Chips.Text = "Chips : 0";
             }
             if (bot4Chips <= 0)
             {
-                tbBotChips4.Text = "Chips : 0";
+                textBoxBot4Chips.Text = "Chips : 0";
             }
             if (bot5Chips <= 0)
             {
-                tbBotChips5.Text = "Chips : 0";
+                textBoxBot5Chips.Text = "Chips : 0";
             }
-            tbChips.Text = "Chips : " + Chips.ToString();
-            tbBotChips1.Text = "Chips : " + bot1Chips.ToString();
-            tbBotChips2.Text = "Chips : " + bot2Chips.ToString();
-            tbBotChips3.Text = "Chips : " + bot3Chips.ToString();
-            tbBotChips4.Text = "Chips : " + bot4Chips.ToString();
-            tbBotChips5.Text = "Chips : " + bot5Chips.ToString();
+            playerChips.Text = "Chips : " + Chips.ToString();
+            textBoxBot1Chips.Text = "Chips : " + bot1Chips.ToString();
+            textBoxBot2Chips.Text = "Chips : " + bot2Chips.ToString();
+            textBoxBot3Chips.Text = "Chips : " + bot3Chips.ToString();
+            textBoxBot4Chips.Text = "Chips : " + bot4Chips.ToString();
+            textBoxBot5Chips.Text = "Chips : " + bot5Chips.ToString();
             if (Chips <= 0)
             {
                 Pturn = false;
                 PFturn = true;
-                bCall.Enabled = false;
-                bRaise.Enabled = false;
-                bFold.Enabled = false;
-                bCheck.Enabled = false;
+                buttonCall.Enabled = false;
+                buttonRaise.Enabled = false;
+                buttonFold.Enabled = false;
+                buttonCheck.Enabled = false;
             }
             if (up > 0)
             {
@@ -2825,122 +2824,122 @@
             }
             if (Chips >= call)
             {
-                bCall.Text = "Call " + call.ToString();
+                buttonCall.Text = "Call " + call.ToString();
             }
             else
             {
-                bCall.Text = "All in";
-                bRaise.Enabled = false;
+                buttonCall.Text = "All in";
+                buttonRaise.Enabled = false;
             }
             if (call > 0)
             {
-                bCheck.Enabled = false;
+                buttonCheck.Enabled = false;
             }
             if (call <= 0)
             {
-                bCheck.Enabled = true;
-                bCall.Text = "Call";
-                bCall.Enabled = false;
+                buttonCheck.Enabled = true;
+                buttonCall.Text = "Call";
+                buttonCall.Enabled = false;
             }
             if (Chips <= 0)
             {
-                bRaise.Enabled = false;
+                buttonRaise.Enabled = false;
             }
             int parsedValue;
 
-            if (tbRaise.Text != "" && int.TryParse(tbRaise.Text, out parsedValue))
+            if (textBoxRaise.Text != "" && int.TryParse(textBoxRaise.Text, out parsedValue))
             {
-                if (Chips <= int.Parse(tbRaise.Text))
+                if (Chips <= int.Parse(textBoxRaise.Text))
                 {
-                    bRaise.Text = "All in";
+                    buttonRaise.Text = "All in";
                 }
                 else
                 {
-                    bRaise.Text = "Raise";
+                    buttonRaise.Text = "Raise";
                 }
             }
             if (Chips < call)
             {
-                bRaise.Enabled = false;
+                buttonRaise.Enabled = false;
             }
         }
-        private async void bFold_Click(object sender, EventArgs e)
+        private async void buttonFold_Click(object sender, EventArgs e)
         {
-            pStatus.Text = "Fold";
+            playerStatus.Text = "Fold";
             Pturn = false;
             PFturn = true;
             await Turns();
         }
-        private async void bCheck_Click(object sender, EventArgs e)
+        private async void buttonCheck_Click(object sender, EventArgs e)
         {
             if (call <= 0)
             {
                 Pturn = false;
-                pStatus.Text = "Check";
+                playerStatus.Text = "Check";
             }
             else
             {
-                //pStatus.Text = "All in " + Chips;
+                //playerStatus.Text = "All in " + Chips;
 
-                bCheck.Enabled = false;
+                buttonCheck.Enabled = false;
             }
             await Turns();
         }
-        private async void bCall_Click(object sender, EventArgs e)
+        private async void buttonCall_Click(object sender, EventArgs e)
         {
             Rules(0, 1, "Player", ref pType, ref pPower, PFturn);
             if (Chips >= call)
             {
                 Chips -= call;
-                tbChips.Text = "Chips : " + Chips.ToString();
-                if (tbPot.Text != "")
+                textBoxAddChips.Text = "Chips : " + Chips.ToString();
+                if (textBoxGamePot.Text != "")
                 {
-                    tbPot.Text = (int.Parse(tbPot.Text) + call).ToString();
+                    textBoxGamePot.Text = (int.Parse(textBoxGamePot.Text) + call).ToString();
                 }
                 else
                 {
-                    tbPot.Text = call.ToString();
+                    textBoxGamePot.Text = call.ToString();
                 }
                 Pturn = false;
-                pStatus.Text = "Call " + call;
+                playerStatus.Text = "Call " + call;
                 pCall = call;
             }
             else if (Chips <= call && call > 0)
             {
-                tbPot.Text = (int.Parse(tbPot.Text) + Chips).ToString();
-                pStatus.Text = "All in " + Chips;
+                textBoxGamePot.Text = (int.Parse(textBoxGamePot.Text) + Chips).ToString();
+                playerStatus.Text = "All in " + Chips;
                 Chips = 0;
-                tbChips.Text = "Chips : " + Chips.ToString();
+                textBoxAddChips.Text = "Chips : " + Chips.ToString();
                 Pturn = false;
-                bFold.Enabled = false;
+                buttonFold.Enabled = false;
                 pCall = Chips;
             }
             await Turns();
         }
-        private async void bRaise_Click(object sender, EventArgs e)
+        private async void buttonRaise_Click(object sender, EventArgs e)
         {
             Rules(0, 1, "Player", ref pType, ref pPower, PFturn);
             int parsedValue;
-            if (tbRaise.Text != "" && int.TryParse(tbRaise.Text, out parsedValue))
+            if (textBoxRaise.Text != "" && int.TryParse(textBoxRaise.Text, out parsedValue))
             {
                 if (Chips > call)
                 {
-                    if (Raise * 2 > int.Parse(tbRaise.Text))
+                    if (Raise * 2 > int.Parse(textBoxRaise.Text))
                     {
-                        tbRaise.Text = (Raise * 2).ToString();
+                        textBoxRaise.Text = (Raise * 2).ToString();
                         MessageBox.Show("You must raise atleast twice as the current raise !");
                         return;
                     }
                     else
                     {
-                        if (Chips >= int.Parse(tbRaise.Text))
+                        if (Chips >= int.Parse(textBoxRaise.Text))
                         {
-                            call = int.Parse(tbRaise.Text);
-                            Raise = int.Parse(tbRaise.Text);
-                            pStatus.Text = "Raise " + call.ToString();
-                            tbPot.Text = (int.Parse(tbPot.Text) + call).ToString();
-                            bCall.Text = "Call";
-                            Chips -= int.Parse(tbRaise.Text);
+                            call = int.Parse(textBoxRaise.Text);
+                            Raise = int.Parse(textBoxRaise.Text);
+                            playerStatus.Text = "Raise " + call.ToString();
+                            textBoxGamePot.Text = (int.Parse(textBoxGamePot.Text) + call).ToString();
+                            buttonCall.Text = "Call";
+                            Chips -= int.Parse(textBoxRaise.Text);
                             raising = true;
                             last = 0;
                             pRaise = Convert.ToInt32(Raise);
@@ -2949,8 +2948,8 @@
                         {
                             call = Chips;
                             Raise = Chips;
-                            tbPot.Text = (int.Parse(tbPot.Text) + Chips).ToString();
-                            pStatus.Text = "Raise " + call.ToString();
+                            textBoxGamePot.Text = (int.Parse(textBoxGamePot.Text) + Chips).ToString();
+                            playerStatus.Text = "Raise " + call.ToString();
                             Chips = 0;
                             raising = true;
                             last = 0;
@@ -2967,96 +2966,96 @@
             Pturn = false;
             await Turns();
         }
-        private void bAdd_Click(object sender, EventArgs e)
+        private void buttonAdd_Click(object sender, EventArgs e)
         {
-            if (tbAdd.Text == "") { }
+            if (textBoxAddChips.Text == "") { }
             else
             {
-                Chips += int.Parse(tbAdd.Text);
-                bot1Chips += int.Parse(tbAdd.Text);
-                bot2Chips += int.Parse(tbAdd.Text);
-                bot3Chips += int.Parse(tbAdd.Text);
-                bot4Chips += int.Parse(tbAdd.Text);
-                bot5Chips += int.Parse(tbAdd.Text);
+                Chips += int.Parse(textBoxAddChips.Text);
+                bot1Chips += int.Parse(textBoxAddChips.Text);
+                bot2Chips += int.Parse(textBoxAddChips.Text);
+                bot3Chips += int.Parse(textBoxAddChips.Text);
+                bot4Chips += int.Parse(textBoxAddChips.Text);
+                bot5Chips += int.Parse(textBoxAddChips.Text);
             }
-            tbChips.Text = "Chips : " + Chips.ToString();
+            textBoxAddChips.Text = "Chips : " + Chips.ToString();
         }
-        private void bOptions_Click(object sender, EventArgs e)
+        private void buttonOptions_Click(object sender, EventArgs e)
         {
-            tbBB.Text = bb.ToString();
-            tbSB.Text = sb.ToString();
-            if (tbBB.Visible == false)
+            textBoxBigBlind.Text = bb.ToString();
+            textBoxSmallBlind.Text = sb.ToString();
+            if (textBoxBigBlind.Visible == false)
             {
-                tbBB.Visible = true;
-                tbSB.Visible = true;
-                bBB.Visible = true;
-                bSB.Visible = true;
+                textBoxBigBlind.Visible = true;
+                textBoxSmallBlind.Visible = true;
+                buttonBigBlind.Visible = true;
+                buttonSmallBlind.Visible = true;
             }
             else
             {
-                tbBB.Visible = false;
-                tbSB.Visible = false;
-                bBB.Visible = false;
-                bSB.Visible = false;
+                textBoxBigBlind.Visible = false;
+                textBoxSmallBlind.Visible = false;
+                buttonBigBlind.Visible = false;
+                buttonSmallBlind.Visible = false;
             }
         }
-        private void bSB_Click(object sender, EventArgs e)
+        private void buttonSmallBlind_Click(object sender, EventArgs e)
         {
             int parsedValue;
-            if (tbSB.Text.Contains(",") || tbSB.Text.Contains("."))
+            if (textBoxSmallBlind.Text.Contains(",") || textBoxSmallBlind.Text.Contains("."))
             {
                 MessageBox.Show("The Small Blind can be only round number !");
-                tbSB.Text = sb.ToString();
+                textBoxSmallBlind.Text = sb.ToString();
                 return;
             }
-            if (!int.TryParse(tbSB.Text, out parsedValue))
+            if (!int.TryParse(textBoxSmallBlind.Text, out parsedValue))
             {
                 MessageBox.Show("This is a number only field");
-                tbSB.Text = sb.ToString();
+                textBoxSmallBlind.Text = sb.ToString();
                 return;
             }
-            if (int.Parse(tbSB.Text) > 100000)
+            if (int.Parse(textBoxSmallBlind.Text) > 100000)
             {
                 MessageBox.Show("The maximum of the Small Blind is 100 000 $");
-                tbSB.Text = sb.ToString();
+                textBoxSmallBlind.Text = sb.ToString();
             }
-            if (int.Parse(tbSB.Text) < 250)
+            if (int.Parse(textBoxSmallBlind.Text) < 250)
             {
                 MessageBox.Show("The minimum of the Small Blind is 250 $");
             }
-            if (int.Parse(tbSB.Text) >= 250 && int.Parse(tbSB.Text) <= 100000)
+            if (int.Parse(textBoxSmallBlind.Text) >= 250 && int.Parse(textBoxSmallBlind.Text) <= 100000)
             {
-                sb = int.Parse(tbSB.Text);
+                sb = int.Parse(textBoxSmallBlind.Text);
                 MessageBox.Show("The changes have been saved ! They will become available the next hand you play. ");
             }
         }
-        private void bBB_Click(object sender, EventArgs e)
+        private void buttonBigBlind_Click(object sender, EventArgs e)
         {
             int parsedValue;
-            if (tbBB.Text.Contains(",") || tbBB.Text.Contains("."))
+            if (textBoxBigBlind.Text.Contains(",") || textBoxBigBlind.Text.Contains("."))
             {
                 MessageBox.Show("The Big Blind can be only round number !");
-                tbBB.Text = bb.ToString();
+                textBoxBigBlind.Text = bb.ToString();
                 return;
             }
-            if (!int.TryParse(tbSB.Text, out parsedValue))
+            if (!int.TryParse(textBoxSmallBlind.Text, out parsedValue))
             {
                 MessageBox.Show("This is a number only field");
-                tbSB.Text = bb.ToString();
+                textBoxSmallBlind.Text = bb.ToString();
                 return;
             }
-            if (int.Parse(tbBB.Text) > 200000)
+            if (int.Parse(textBoxBigBlind.Text) > 200000)
             {
                 MessageBox.Show("The maximum of the Big Blind is 200 000");
-                tbBB.Text = bb.ToString();
+                textBoxBigBlind.Text = bb.ToString();
             }
-            if (int.Parse(tbBB.Text) < 500)
+            if (int.Parse(textBoxBigBlind.Text) < 500)
             {
                 MessageBox.Show("The minimum of the Big Blind is 500 $");
             }
-            if (int.Parse(tbBB.Text) >= 500 && int.Parse(tbBB.Text) <= 200000)
+            if (int.Parse(textBoxBigBlind.Text) >= 500 && int.Parse(textBoxBigBlind.Text) <= 200000)
             {
-                bb = int.Parse(tbBB.Text);
+                bb = int.Parse(textBoxBigBlind.Text);
                 MessageBox.Show("The changes have been saved ! They will become available the next hand you play. ");
             }
         }
