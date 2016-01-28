@@ -56,16 +56,17 @@
     <Compile Include="Core\GameLogic\CheckHand.cs" />
     <Compile Include="Core\GameLogic\GameActions.cs" />
     <Compile Include="Core\GameLogic\HandClassificator.cs" />
+    <Compile Include="Core\GameLogic\HandPower.cs" />
     <Compile Include="CustomMessages\Message.cs" />
     <Compile Include="Enums\EngineStateType.cs" />
     <Compile Include="Enums\GameStateType.cs" />
     <Compile Include="Enums\PokerHand.cs" />
     <Compile Include="Events\EngineEventArgs.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Game.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Game.Designer.cs">
+      <DependentUpon>Game.cs</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\ICard.cs" />
     <Compile Include="Interfaces\ICardHolder.cs" />
@@ -84,7 +85,6 @@
     <Compile Include="Models\Character\Deck.cs" />
     <Compile Include="Models\Character\Player.cs" />
     <Compile Include="Models\Character\SingleBet.cs" />
-    <Compile Include="Models\HandPower.cs" />
     <Compile Include="Models\PokerManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProgressBars.cs" />
@@ -95,8 +95,8 @@
     <EmbeddedResource Include="AddChips.resx">
       <DependentUpon>AddChips.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Game.resx">
+      <DependentUpon>Game.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

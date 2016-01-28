@@ -1,15 +1,14 @@
 ﻿namespace Poker.Models
 {
-    using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.Threading.Tasks;
     using System.Windows.Forms;
 
-    using Poker.Enums;
-    using Poker.Interfaces;
-    using Poker.Models.Character;
-    using Poker.Utils;
+    using Enums;
+    using Interfaces;
+    using Character;
+    using Utils;
 
     public class PokerManager : CardHolder, IPokerManager
     {
@@ -21,19 +20,6 @@
         }
 
         public GameStateType CurrentGameState { get; set; }
-
-        GameStateType IPokerManager.CurrentGameState
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
 
         public override async Task SetAllCards(IList<ICard> cards)
         {
@@ -52,8 +38,6 @@
             pictureBox.Image = card.CardBackImage;
         }
 
-        //TODO
-
         private void SetCardDetails(int x, int y)
         {
             for (int i = 0; i < GameConstants.DrowedCards; i++)
@@ -69,6 +53,5 @@
                 this.PictureBox.Add(cardHolder);
             }
         }
-
     }
 }

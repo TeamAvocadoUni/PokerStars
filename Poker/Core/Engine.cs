@@ -366,8 +366,6 @@ namespace Poker.Core
                 {
                     player.ShowCardAtPosition(i);
                 }
-
-                //this.CheckWinner(player); // This should be removed later
             }
 
             var winners = this.GetWinners(players);
@@ -421,7 +419,6 @@ namespace Poker.Core
                         Call = 0;
                         raisedTurn = 123;
                         this.pokerManager.CurrentGameState++;
-                        //currentRound++; // Should be removed later
                         foreach (var player in this.GetAllPlayers())
                         {
                             if (!player.FoldTurn)
@@ -517,10 +514,8 @@ namespace Poker.Core
                     }
                     if (player.CharacterStatus.Text.Contains("Check"))
                     {
-                        //player.RaiseAmount = 0; // This should be removed later
                         this.ResetCall(new List<ICharacter>() { player });
                         this.ResetRaise(new List<ICharacter>() { player });
-                        //player.CallAmount = 0; // This should be removed later
                     }
                 }
 
@@ -688,53 +683,62 @@ namespace Poker.Core
             {
                 if (player.CharacterType.Current == GameConstants.HighCard)
                 {
-                    handType.HighCard(player, Call, this.Bet,ref raise, ref hasRaisedPlayers);
-                    
+                    handType.HighCard(player, Call, this.Bet, raise);
+                    CheckForRaisedPlayers(player);
                 }
 
                 if (player.CharacterType.Current == GameConstants.PairTable)
                 {
-                   handType.PairTable(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                   handType.PairTable(player, Call, this.Bet, raise);
+                    CheckForRaisedPlayers(player);
                 }
 
                 if (player.CharacterType.Current == GameConstants.PairFromHand)
                 {
-                    handType.PairHand(player, Call, this.Bet, ref raise, ref hasRaisedPlayers, this.pokerManager.CurrentGameState);
+                    handType.PairHand(player, Call, this.Bet, raise, this.pokerManager.CurrentGameState);
+                    CheckForRaisedPlayers(player);
                 }
 
                 if (player.CharacterType.Current == GameConstants.TwoPair)
                 {
-                    handType.TwoPair(player, Call, this.Bet, ref raise, ref hasRaisedPlayers, this.pokerManager.CurrentGameState);
+                    handType.TwoPair(player, Call, this.Bet, raise, this.pokerManager.CurrentGameState);
+                    CheckForRaisedPlayers(player);
                 }
 
                 if (player.CharacterType.Current == GameConstants.ThreeOfAKind)
                 {
-                    handType.ThreeOfAKind(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                    handType.ThreeOfAKind(player, Call, this.Bet, raise);
+                    CheckForRaisedPlayers(player);
                 }
 
                 if (player.CharacterType.Current == GameConstants.Straigth)
                 {
-                    handType.Straight(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                    handType.Straight(player, Call, this.Bet, raise);
+                    CheckForRaisedPlayers(player);
                 }
 
                 if (player.CharacterType.Current == GameConstants.Flush || player.CharacterType.Current == GameConstants.FlushWithAce)
                 {
-                    handType.Flush(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                    handType.Flush(player, Call, this.Bet, raise);
+                    CheckForRaisedPlayers(player);
                 }
 
                 if (player.CharacterType.Current == GameConstants.FullHouse)
                 {
-                   handType.FullHouse(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                   handType.FullHouse(player, Call, this.Bet, raise);
+                    CheckForRaisedPlayers(player);
                 }
 
                 if (player.CharacterType.Current == GameConstants.FourOfAKind)
                 {
-                    handType.FourOfAKind(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                    handType.FourOfAKind(player, Call, this.Bet, raise);
+                    CheckForRaisedPlayers(player);
                 }
 
                 if (player.CharacterType.Current == GameConstants.StraightFlush || player.CharacterType.Current == GameConstants.RoyalFlush)
                 {
-                    handType.StraightFlush(player, Call, this.Bet, ref raise, ref hasRaisedPlayers);
+                    handType.StraightFlush(player, Call, this.Bet, raise);
+                    CheckForRaisedPlayers(player);
                 }
             }
 
@@ -743,6 +747,20 @@ namespace Poker.Core
                 foreach (var pictureBox in player.PictureBox)
                 {
                     pictureBox.Visible = false;
+                }
+            }
+        }
+
+        private void CheckForRaisedPlayers(ICharacter player)
+        {
+            var allPlayers = this.bots;
+            allPlayers.Add(this.player);
+            foreach (var character in allPlayers)
+            {
+                if (character.HasRaised)
+                {
+                    this.hasRaisedPlayers = true;
+                    break;
                 }
             }
         }
