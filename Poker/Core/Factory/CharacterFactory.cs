@@ -1,6 +1,7 @@
-﻿namespace Poker.Core.Factory
+﻿using Poker.CustomExceptions;
+
+namespace Poker.Core.Factory
 {
-    using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
@@ -60,7 +61,7 @@
                         cardHolders,
                         panel);
                 default:
-                    throw new NotImplementedException("This character type is not implemented.");
+                    throw new PlayerTypeNotImplementedException("");
             }
         }
 
