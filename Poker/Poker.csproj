@@ -75,8 +75,10 @@
     <Compile Include="Interfaces\IDeck.cs" />
     <Compile Include="Interfaces\IGameAction.cs" />
     <Compile Include="Interfaces\IGameEngine.cs" />
+    <Compile Include="Interfaces\IHandPower.cs" />
     <Compile Include="Interfaces\IMessage.cs" />
     <Compile Include="Interfaces\IPokerManager.cs" />
+    <Compile Include="Interfaces\IRandomNumberProvider.cs" />
     <Compile Include="Interfaces\ISingleBet.cs" />
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\Character\Bot.cs" />
@@ -92,6 +94,7 @@
     <Compile Include="Type.cs" />
     <Compile Include="Utils\CalculationsHelper.cs" />
     <Compile Include="Utils\GameConstants.cs" />
+    <Compile Include="Utils\RandomNumberProvider.cs" />
     <EmbeddedResource Include="AddChips.resx">
       <DependentUpon>AddChips.cs</DependentUpon>
     </EmbeddedResource>

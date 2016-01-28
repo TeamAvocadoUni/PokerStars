@@ -16,8 +16,7 @@ namespace Poker.Core
     public class Engine : IGameEngine
     {
         public event EngineStateEvent EngineEvent;
-
-        private HandPower handType = new HandPower();
+        
         private CheckHand checkHandType = new CheckHand(); 
         private ICharacter player;
         private IPokerManager pokerManager;
@@ -49,7 +48,7 @@ namespace Poker.Core
 
         public IMessage Message { get; set; }
 
-        public Engine(ICharacter player, ICollection<ICharacter> bots, ISingleBet bet, IPokerManager pokerManager, IDeck deck, IMessage message)
+        public Engine(ICharacter player, ICollection<ICharacter> bots, ISingleBet bet, IPokerManager pokerManager, IDeck deck, IMessage message, IHandPower type)
         {
             this.player = player;
             this.bots = new List<ICharacter>(bots);
@@ -63,7 +62,12 @@ namespace Poker.Core
             this.SetDefaultCall();
             this.Raise = 0;
             this.hasRaisedPlayers = false;
+            this.ClassificattorType = type;
         }
+
+        public IHandPower ClassificattorType { get; set; }
+
+        public IRandomNumberProvider RandomNumberProvider { get; set; }
 
         public ICharacter GetHumanPlayer()
         {
@@ -683,61 +687,61 @@ namespace Poker.Core
             {
                 if (player.CharacterType.Current == GameConstants.HighCard)
                 {
-                    handType.HighCard(player, Call, this.Bet, raise);
+                    this.ClassificattorType.HighCard(player, Call, this.Bet, raise);
                     CheckForRaisedPlayers(player);
                 }
 
                 if (player.CharacterType.Current == GameConstants.PairTable)
                 {
-                   handType.PairTable(player, Call, this.Bet, raise);
+                    this.ClassificattorType.PairTable(player, Call, this.Bet, raise);
                     CheckForRaisedPlayers(player);
                 }
 
                 if (player.CharacterType.Current == GameConstants.PairFromHand)
                 {
-                    handType.PairHand(player, Call, this.Bet, raise, this.pokerManager.CurrentGameState);
+                    this.ClassificattorType.PairHand(player, Call, this.Bet, raise, this.pokerManager.CurrentGameState);
                     CheckForRaisedPlayers(player);
                 }
 
                 if (player.CharacterType.Current == GameConstants.TwoPair)
                 {
-                    handType.TwoPair(player, Call, this.Bet, raise, this.pokerManager.CurrentGameState);
+                    this.ClassificattorType.TwoPair(player, Call, this.Bet, raise, this.pokerManager.CurrentGameState);
                     CheckForRaisedPlayers(player);
                 }
 
                 if (player.CharacterType.Current == GameConstants.ThreeOfAKind)
                 {
-                    handType.ThreeOfAKind(player, Call, this.Bet, raise);
+                    this.ClassificattorType.ThreeOfAKind(player, Call, this.Bet, raise);
                     CheckForRaisedPlayers(player);
                 }
 
                 if (player.CharacterType.Current == GameConstants.Straigth)
                 {
-                    handType.Straight(player, Call, this.Bet, raise);
+                    this.ClassificattorType.Straight(player, Call, this.Bet, raise);
                     CheckForRaisedPlayers(player);
                 }
 
                 if (player.CharacterType.Current == GameConstants.Flush || player.CharacterType.Current == GameConstants.FlushWithAce)
                 {
-                    handType.Flush(player, Call, this.Bet, raise);
+                    this.ClassificattorType.Flush(player, Call, this.Bet, raise);
                     CheckForRaisedPlayers(player);
                 }
 
                 if (player.CharacterType.Current == GameConstants.FullHouse)
                 {
-                   handType.FullHouse(player, Call, this.Bet, raise);
+                    this.ClassificattorType.FullHouse(player, Call, this.Bet, raise);
                     CheckForRaisedPlayers(player);
                 }
 
                 if (player.CharacterType.Current == GameConstants.FourOfAKind)
                 {
-                    handType.FourOfAKind(player, Call, this.Bet, raise);
+                    this.ClassificattorType.FourOfAKind(player, Call, this.Bet, raise);
                     CheckForRaisedPlayers(player);
                 }
 
                 if (player.CharacterType.Current == GameConstants.StraightFlush || player.CharacterType.Current == GameConstants.RoyalFlush)
                 {
-                    handType.StraightFlush(player, Call, this.Bet, raise);
+                    this.ClassificattorType.StraightFlush(player, Call, this.Bet, raise);
                     CheckForRaisedPlayers(player);
                 }
             }

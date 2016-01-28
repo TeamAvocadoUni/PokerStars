@@ -4,15 +4,15 @@ using Poker.Interfaces;
 
 namespace Poker.Core.GameLogic
 {
-    public class HandPower
+    public class HandPower : IHandPower
     {
         private readonly HandClassificator type;
-        private readonly Random rnd;
+        private readonly IRandomNumberProvider random;
 
-        public HandPower()
+        public HandPower(HandClassificator type, IRandomNumberProvider random)
         {
-            this.type = new HandClassificator();
-            this.rnd = new Random();
+            this.type = type;
+            this.random = random;
         }
 
         public void HighCard(ICharacter character, int call, ISingleBet bet, int raise)
@@ -27,8 +27,8 @@ namespace Poker.Core.GameLogic
 
         public void PairHand(ICharacter character, int call, ISingleBet bet, int raise, GameStateType state)
         {
-            int randomCall = this.rnd.Next(10, 16);
-            int randomRaise = this.rnd.Next(10, 13);
+            int randomCall = this.random.GetRandomNumberInInterval(10, 16);
+            int randomRaise = this.random.GetRandomNumberInInterval(10, 13);
 
             if (character.CharacterType.Power <= 199 && character.CharacterType.Power >= 140)
             {
@@ -48,8 +48,8 @@ namespace Poker.Core.GameLogic
 
         public void TwoPair(ICharacter character, int call, ISingleBet bet, int raise, GameStateType state)
         {
-            int randomCall = this.rnd.Next(6, 11);
-            int randomRaise = this.rnd.Next(6, 11);
+            int randomCall = this.random.GetRandomNumberInInterval(6, 11);
+            int randomRaise = this.random.GetRandomNumberInInterval(6, 11);
 
             if (character.CharacterType.Power <= 290 && character.CharacterType.Power >= 246)
             {
@@ -69,8 +69,8 @@ namespace Poker.Core.GameLogic
 
         public void ThreeOfAKind(ICharacter character, int call, ISingleBet bet, int raise)
         {
-            int randomCall = this.rnd.Next(3, 7);
-            int randomRaise = this.rnd.Next(4, 8);
+            int randomCall = this.random.GetRandomNumberInInterval(3, 7);
+            int randomRaise = this.random.GetRandomNumberInInterval(4, 8);
 
             if (character.CharacterType.Power <= 390 && character.CharacterType.Power >= 330)
             {
@@ -90,8 +90,8 @@ namespace Poker.Core.GameLogic
 
         public void Straight(ICharacter character, int call, ISingleBet bet, int raise)
         {
-            int randomCall = this.rnd.Next(3, 6);
-            int randomRaise = this.rnd.Next(3, 8);
+            int randomCall = this.random.GetRandomNumberInInterval(3, 6);
+            int randomRaise = this.random.GetRandomNumberInInterval(3, 8);
 
             if (character.CharacterType.Power <= 480 && character.CharacterType.Power >= 410)
             {
@@ -111,16 +111,16 @@ namespace Poker.Core.GameLogic
 
         public void Flush(ICharacter character, int call, ISingleBet bet, int raise)
         {
-            int randomCall = this.rnd.Next(2, 6);
-            int randomRaise = this.rnd.Next(3, 7);
+            int randomCall = this.random.GetRandomNumberInInterval(2, 6);
+            int randomRaise = this.random.GetRandomNumberInInterval(3, 7);
 
             this.type.Smooth(character, randomCall, randomRaise, call, bet, raise);
         }
 
         public void FullHouse(ICharacter character, int call, ISingleBet bet, int raise)
         {
-            int randomhCall = this.rnd.Next(1, 5);
-            int randomRaise = this.rnd.Next(2, 6);
+            int randomhCall = this.random.GetRandomNumberInInterval(1, 5);
+            int randomRaise = this.random.GetRandomNumberInInterval(2, 6);
 
             if (character.CharacterType.Power <= 626 && character.CharacterType.Power >= 620)
             {
@@ -135,8 +135,8 @@ namespace Poker.Core.GameLogic
 
         public void FourOfAKind(ICharacter character, int call, ISingleBet bet, int raise)
         {
-            int randomCall = this.rnd.Next(1, 4);
-            int randomRaise = this.rnd.Next(2, 5);
+            int randomCall = this.random.GetRandomNumberInInterval(1, 4);
+            int randomRaise = this.random.GetRandomNumberInInterval(2, 5);
 
             if (character.CharacterType.Power <= 752 && character.CharacterType.Power >= 704)
             {
@@ -146,8 +146,8 @@ namespace Poker.Core.GameLogic
 
         public void StraightFlush(ICharacter character, int call, ISingleBet bet, int raise)
         {
-            int randomCall = this.rnd.Next(1, 3);
-            int randomRaise = this.rnd.Next(1, 3);
+            int randomCall = this.random.GetRandomNumberInInterval(1, 3);
+            int randomRaise = this.random.GetRandomNumberInInterval(1, 3);
 
             if (character.CharacterType.Power <= 913 && character.CharacterType.Power >= 804)
             {
