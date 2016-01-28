@@ -353,7 +353,7 @@
             this.DoubleBuffered = true;
             this.Name = "Form1";
             this.Text = "GLS Texas Poker";
-            this.Layout += new System.Windows.Forms.LayoutEventHandler(this.Layout_Change);
+            //this.Layout += new System.Windows.Forms.LayoutEventHandler(this.Layout_Change);
             this.ResumeLayout(false);
             this.PerformLayout();
 
