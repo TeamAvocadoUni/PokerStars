@@ -57,6 +57,7 @@
     <Compile Include="Core\GameLogic\GameActions.cs" />
     <Compile Include="Core\GameLogic\HandClassificator.cs" />
     <Compile Include="Core\GameLogic\HandPower.cs" />
+    <Compile Include="CustomExceptions\PlayerTypeNotImplementedException.cs" />
     <Compile Include="CustomMessages\Message.cs" />
     <Compile Include="Enums\EngineStateType.cs" />
     <Compile Include="Enums\GameStateType.cs" />

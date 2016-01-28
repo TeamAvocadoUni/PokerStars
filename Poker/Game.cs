@@ -30,19 +30,19 @@
         private int bot5Chips = 10000;
         private double type;
         private double rounds = 0;
-        private double b1Power;
-        private double b2Power;
-        private double b3Power;
-        private double b4Power;
-        private double b5Power;
+        private double bot1Power;
+        private double bot2Power;
+        private double bot3Power;
+        private double bot4Power;
+        private double bot5Power;
         private double pPower = 0;
         private double pType = -1;
         private double Raise = 0;
-        private double b1Type = -1;
-        private double b2Type = -1;
-        private double b3Type = -1;
-        private double b4Type = -1;
-        private double b5Type = -1;
+        private double bot1Type = -1;
+        private double bot2Type = -1;
+        private double bot3Type = -1;
+        private double bot4Type = -1;
+        private double bot5Type = -1;
         private bool B1turn = false;
         private bool B2turn = false;
         private bool B3turn = false;
@@ -114,13 +114,13 @@
             InitializeComponent();
             Shuffle();
             textBoxGamePot.Enabled = false;
-            textBoxAddChips.Enabled = false;
+            textBoxAddChips.Enabled = true;
             textBoxBot1Chips.Enabled = false;
             textBoxBot2Chips.Enabled = false;
             textBoxBot3Chips.Enabled = false;
             textBoxBot4Chips.Enabled = false;
             textBoxBot5Chips.Enabled = false;
-            textBoxAddChips.Text = "Chips : " + Chips;
+            playerChips.Text = "Chips : " + Chips;
             textBoxBot1Chips.Text = "Chips : " + bot1Chips;
             textBoxBot2Chips.Text = "Chips : " + bot2Chips;
             textBoxBot3Chips.Text = "Chips : " + bot3Chips;
@@ -575,9 +575,9 @@
                     {
                         FixCall(bot1Status, ref b1Call, ref b1Raise, 1);
                         FixCall(bot1Status, ref b1Call, ref b1Raise, 2);
-                        Rules(2, 3, "Bot 1", ref b1Type, ref b1Power, B1Fturn);
+                        Rules(2, 3, "Bot 1", ref bot1Type, ref bot1Power, B1Fturn);
                         MessageBox.Show("Bot 1's Turn");
-                        AI(2, 3, ref bot1Chips, ref B1turn, ref  B1Fturn, bot1Status, 0, b1Power, b1Type);
+                        AI(2, 3, ref bot1Chips, ref B1turn, ref  B1Fturn, bot1Status, 0, bot1Power, bot1Type);
                         turnCount++;
                         last = 1;
                         B1turn = false;
@@ -602,9 +602,9 @@
                     {
                         FixCall(bot2Status, ref b2Call, ref b2Raise, 1);
                         FixCall(bot2Status, ref b2Call, ref b2Raise, 2);
-                        Rules(4, 5, "Bot 2", ref b2Type, ref b2Power, B2Fturn);
+                        Rules(4, 5, "Bot 2", ref bot2Type, ref bot2Power, B2Fturn);
                         MessageBox.Show("Bot 2's Turn");
-                        AI(4, 5, ref bot2Chips, ref B2turn, ref  B2Fturn, bot2Status, 1, b2Power, b2Type);
+                        AI(4, 5, ref bot2Chips, ref B2turn, ref  B2Fturn, bot2Status, 1, bot2Power, bot2Type);
                         turnCount++;
                         last = 2;
                         B2turn = false;
@@ -629,9 +629,9 @@
                     {
                         FixCall(bot3Status, ref b3Call, ref b3Raise, 1);
                         FixCall(bot3Status, ref b3Call, ref b3Raise, 2);
-                        Rules(6, 7, "Bot 3", ref b3Type, ref b3Power, B3Fturn);
+                        Rules(6, 7, "Bot 3", ref bot3Type, ref bot3Power, B3Fturn);
                         MessageBox.Show("Bot 3's Turn");
-                        AI(6, 7, ref bot3Chips, ref B3turn, ref  B3Fturn, bot3Status, 2, b3Power, b3Type);
+                        AI(6, 7, ref bot3Chips, ref B3turn, ref  B3Fturn, bot3Status, 2, bot3Power, bot3Type);
                         turnCount++;
                         last = 3;
                         B3turn = false;
@@ -656,9 +656,9 @@
                     {
                         FixCall(bot4Status, ref b4Call, ref b4Raise, 1);
                         FixCall(bot4Status, ref b4Call, ref b4Raise, 2);
-                        Rules(8, 9, "Bot 4", ref b4Type, ref b4Power, B4Fturn);
+                        Rules(8, 9, "Bot 4", ref bot4Type, ref bot4Power, B4Fturn);
                         MessageBox.Show("Bot 4's Turn");
-                        AI(8, 9, ref bot4Chips, ref B4turn, ref  B4Fturn, bot4Status, 3, b4Power, b4Type);
+                        AI(8, 9, ref bot4Chips, ref B4turn, ref  B4Fturn, bot4Status, 3, bot4Power, bot4Type);
                         turnCount++;
                         last = 4;
                         B4turn = false;
@@ -683,9 +683,9 @@
                     {
                         FixCall(bot5Status, ref b5Call, ref b5Raise, 1);
                         FixCall(bot5Status, ref b5Call, ref b5Raise, 2);
-                        Rules(10, 11, "Bot 5", ref b5Type, ref b5Power, B5Fturn);
+                        Rules(10, 11, "Bot 5", ref bot5Type, ref bot5Power, B5Fturn);
                         MessageBox.Show("Bot 5's Turn");
-                        AI(10, 11, ref bot5Chips, ref B5turn, ref  B5Fturn, bot5Status, 4, b5Power, b5Type);
+                        AI(10, 11, ref bot5Chips, ref B5turn, ref  B5Fturn, bot5Status, 4, bot5Power, bot5Type);
                         turnCount++;
                         last = 5;
                         B5turn = false;
@@ -1805,7 +1805,7 @@
                     if (CheckWinners.Contains("Player"))
                     {
                         Chips += int.Parse(textBoxGamePot.Text) / winners;
-                        textBoxAddChips.Text = Chips.ToString();
+                        playerChips.Text = Chips.ToString(); // CHANGE
                         //playerPanel.Visible = true;
 
                     }
@@ -1978,34 +1978,34 @@
                 if (!bot1Status.Text.Contains("Fold"))
                 {
                     fixedLast = "Bot 1";
-                    Rules(2, 3, "Bot 1", ref b1Type, ref b1Power, B1Fturn);
+                    Rules(2, 3, "Bot 1", ref bot1Type, ref bot1Power, B1Fturn);
                 }
                 if (!bot2Status.Text.Contains("Fold"))
                 {
                     fixedLast = "Bot 2";
-                    Rules(4, 5, "Bot 2", ref b2Type, ref b2Power, B2Fturn);
+                    Rules(4, 5, "Bot 2", ref bot2Type, ref bot2Power, B2Fturn);
                 }
                 if (!bot3Status.Text.Contains("Fold"))
                 {
                     fixedLast = "Bot 3";
-                    Rules(6, 7, "Bot 3", ref b3Type, ref b3Power, B3Fturn);
+                    Rules(6, 7, "Bot 3", ref bot3Type, ref bot3Power, B3Fturn);
                 }
                 if (!bot4Status.Text.Contains("Fold"))
                 {
                     fixedLast = "Bot 4";
-                    Rules(8, 9, "Bot 4", ref b4Type, ref b4Power, B4Fturn);
+                    Rules(8, 9, "Bot 4", ref bot4Type, ref bot4Power, B4Fturn);
                 }
                 if (!bot5Status.Text.Contains("Fold"))
                 {
                     fixedLast = "Bot 5";
-                    Rules(10, 11, "Bot 5", ref b5Type, ref b5Power, B5Fturn);
+                    Rules(10, 11, "Bot 5", ref bot5Type, ref bot5Power, B5Fturn);
                 }
                 Winner(pType, pPower, "Player", Chips, fixedLast);
-                Winner(b1Type, b1Power, "Bot 1", bot1Chips, fixedLast);
-                Winner(b2Type, b2Power, "Bot 2", bot2Chips, fixedLast);
-                Winner(b3Type, b3Power, "Bot 3", bot3Chips, fixedLast);
-                Winner(b4Type, b4Power, "Bot 4", bot4Chips, fixedLast);
-                Winner(b5Type, b5Power, "Bot 5", bot5Chips, fixedLast);
+                Winner(bot1Type, bot1Power, "Bot 1", bot1Chips, fixedLast);
+                Winner(bot2Type, bot2Power, "Bot 2", bot2Chips, fixedLast);
+                Winner(bot3Type, bot3Power, "Bot 3", bot3Chips, fixedLast);
+                Winner(bot4Type, bot4Power, "Bot 4", bot4Chips, fixedLast);
+                Winner(bot5Type, bot5Power, "Bot 5", bot5Chips, fixedLast);
                 restart = true;
                 Pturn = true;
                 PFturn = false;
@@ -2048,8 +2048,8 @@
                 bools.Clear();
                 rounds = 0;
                 pPower = 0; pType = -1;
-                type = 0; b1Power = 0; b2Power = 0; b3Power = 0; b4Power = 0; b5Power = 0;
-                b1Type = -1; b2Type = -1; b3Type = -1; b4Type = -1; b5Type = -1;
+                type = 0; bot1Power = 0; bot2Power = 0; bot3Power = 0; bot4Power = 0; bot5Power = 0;
+                bot1Type = -1; bot2Type = -1; bot3Type = -1; bot4Type = -1; bot5Type = -1;
                 ints.Clear();
                 CheckWinners.Clear();
                 winners = 0;
@@ -2189,42 +2189,42 @@
                 if (index == 0)
                 {
                     Chips += int.Parse(textBoxGamePot.Text);
-                    textBoxAddChips.Text = Chips.ToString();
+                    playerChips.Text = Chips.ToString(); // CHANGE
                     playerPanel.Visible = true;
                     MessageBox.Show("Player Wins");
                 }
                 if (index == 1)
                 {
                     bot1Chips += int.Parse(textBoxGamePot.Text);
-                    textBoxAddChips.Text = bot1Chips.ToString();
+                    textBoxBot1Chips.Text = bot1Chips.ToString();
                     bot1Panel.Visible = true;
                     MessageBox.Show("Bot 1 Wins");
                 }
                 if (index == 2)
                 {
                     bot2Chips += int.Parse(textBoxGamePot.Text);
-                    textBoxAddChips.Text = bot2Chips.ToString();
+                    textBoxBot2Chips.Text = bot2Chips.ToString();
                     bot2Panel.Visible = true;
                     MessageBox.Show("Bot 2 Wins");
                 }
                 if (index == 3)
                 {
                     bot3Chips += int.Parse(textBoxGamePot.Text);
-                    textBoxAddChips.Text = bot3Chips.ToString();
+                    textBoxBot3Chips.Text = bot3Chips.ToString();
                     bot3Panel.Visible = true;
                     MessageBox.Show("Bot 3 Wins");
                 }
                 if (index == 4)
                 {
                     bot4Chips += int.Parse(textBoxGamePot.Text);
-                    textBoxAddChips.Text = bot4Chips.ToString();
+                    textBoxBot4Chips.Text = bot4Chips.ToString();
                     bot4Panel.Visible = true;
                     MessageBox.Show("Bot 4 Wins");
                 }
                 if (index == 5)
                 {
                     bot5Chips += int.Parse(textBoxGamePot.Text);
-                    textBoxAddChips.Text = bot5Chips.ToString();
+                    textBoxBot5Chips.Text = bot5Chips.ToString();
                     bot5Panel.Visible = true;
                     MessageBox.Show("Bot 5 Wins");
                 }
@@ -2255,8 +2255,8 @@
             playerPanel.Visible = false; bot1Panel.Visible = false; bot2Panel.Visible = false; bot3Panel.Visible = false; bot4Panel.Visible = false; bot5Panel.Visible = false;
             call = bb; Raise = 0;
             foldedPlayers = 5;
-            type = 0; rounds = 0; b1Power = 0; b2Power = 0; b3Power = 0; b4Power = 0; b5Power = 0; pPower = 0; pType = -1; Raise = 0;
-            b1Type = -1; b2Type = -1; b3Type = -1; b4Type = -1; b5Type = -1;
+            type = 0; rounds = 0; bot1Power = 0; bot2Power = 0; bot3Power = 0; bot4Power = 0; bot5Power = 0; pPower = 0; pType = -1; Raise = 0;
+            bot1Type = -1; bot2Type = -1; bot3Type = -1; bot4Type = -1; bot5Type = -1;
             B1turn = false; B2turn = false; B3turn = false; B4turn = false; B5turn = false;
             B1Fturn = false; B2Fturn = false; B3Fturn = false; B4Fturn = false; B5Fturn = false;
             pFolded = false; b1Folded = false; b2Folded = false; b3Folded = false; b4Folded = false; b5Folded = false;
@@ -2321,34 +2321,34 @@
             if (!bot1Status.Text.Contains("Fold"))
             {
                 fixedLast = "Bot 1";
-                Rules(2, 3, "Bot 1", ref b1Type, ref b1Power, B1Fturn);
+                Rules(2, 3, "Bot 1", ref bot1Type, ref bot1Power, B1Fturn);
             }
             if (!bot2Status.Text.Contains("Fold"))
             {
                 fixedLast = "Bot 2";
-                Rules(4, 5, "Bot 2", ref b2Type, ref b2Power, B2Fturn);
+                Rules(4, 5, "Bot 2", ref bot2Type, ref bot2Power, B2Fturn);
             }
             if (!bot3Status.Text.Contains("Fold"))
             {
                 fixedLast = "Bot 3";
-                Rules(6, 7, "Bot 3", ref b3Type, ref b3Power, B3Fturn);
+                Rules(6, 7, "Bot 3", ref bot3Type, ref bot3Power, B3Fturn);
             }
             if (!bot4Status.Text.Contains("Fold"))
             {
                 fixedLast = "Bot 4";
-                Rules(8, 9, "Bot 4", ref b4Type, ref b4Power, B4Fturn);
+                Rules(8, 9, "Bot 4", ref bot4Type, ref bot4Power, B4Fturn);
             }
             if (!bot5Status.Text.Contains("Fold"))
             {
                 fixedLast = "Bot 5";
-                Rules(10, 11, "Bot 5", ref b5Type, ref b5Power, B5Fturn);
+                Rules(10, 11, "Bot 5", ref bot5Type, ref bot5Power, B5Fturn);
             }
             Winner(pType, pPower, "Player", Chips, fixedLast);
-            Winner(b1Type, b1Power, "Bot 1", bot1Chips, fixedLast);
-            Winner(b2Type, b2Power, "Bot 2", bot2Chips, fixedLast);
-            Winner(b3Type, b3Power, "Bot 3", bot3Chips, fixedLast);
-            Winner(b4Type, b4Power, "Bot 4", bot4Chips, fixedLast);
-            Winner(b5Type, b5Power, "Bot 5", bot5Chips, fixedLast);
+            Winner(bot1Type, bot1Power, "Bot 1", bot1Chips, fixedLast);
+            Winner(bot2Type, bot2Power, "Bot 2", bot2Chips, fixedLast);
+            Winner(bot3Type, bot3Power, "Bot 3", bot3Chips, fixedLast);
+            Winner(bot4Type, bot4Power, "Bot 4", bot4Chips, fixedLast);
+            Winner(bot5Type, bot5Power, "Bot 5", bot5Chips, fixedLast);
         }
         void AI(int c1, int c2, ref int sChips, ref bool sTurn, ref bool sFTurn, Label sStatus, int name, double botPower, double botCurrent)
         {
@@ -2891,7 +2891,7 @@
             if (Chips >= call)
             {
                 Chips -= call;
-                textBoxAddChips.Text = "Chips : " + Chips.ToString();
+                playerChips.Text = "Chips : " + Chips.ToString(); // CHANGE
                 if (textBoxGamePot.Text != "")
                 {
                     textBoxGamePot.Text = (int.Parse(textBoxGamePot.Text) + call).ToString();
@@ -2909,7 +2909,7 @@
                 textBoxGamePot.Text = (int.Parse(textBoxGamePot.Text) + Chips).ToString();
                 playerStatus.Text = "All in " + Chips;
                 Chips = 0;
-                textBoxAddChips.Text = "Chips : " + Chips.ToString();
+                playerChips.Text = "Chips : " + Chips.ToString(); // CHANGE
                 Pturn = false;
                 buttonFold.Enabled = false;
                 pCall = Chips;
@@ -2968,17 +2968,21 @@
         }
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            if (textBoxAddChips.Text == "") { }
-            else
+            
+            if(textBoxAddChips.Text != "")
             {
-                Chips += int.Parse(textBoxAddChips.Text);
-                bot1Chips += int.Parse(textBoxAddChips.Text);
-                bot2Chips += int.Parse(textBoxAddChips.Text);
-                bot3Chips += int.Parse(textBoxAddChips.Text);
-                bot4Chips += int.Parse(textBoxAddChips.Text);
-                bot5Chips += int.Parse(textBoxAddChips.Text);
+                int addAmount = int.Parse(textBoxAddChips.Text);
+                if (addAmount > 0)
+                {
+                    Chips += int.Parse(textBoxAddChips.Text);
+                    bot1Chips += int.Parse(textBoxAddChips.Text);
+                    bot2Chips += int.Parse(textBoxAddChips.Text);
+                    bot3Chips += int.Parse(textBoxAddChips.Text);
+                    bot4Chips += int.Parse(textBoxAddChips.Text);
+                    bot5Chips += int.Parse(textBoxAddChips.Text);
+                }
             }
-            textBoxAddChips.Text = "Chips : " + Chips.ToString();
+            playerChips.Text = "Chips : " + Chips;
         }
         private void buttonOptions_Click(object sender, EventArgs e)
         {

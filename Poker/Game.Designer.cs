@@ -327,7 +327,7 @@
             this.textBoxRaise.Size = new Size(108, 20);
             this.textBoxRaise.TabIndex = 0;
             // 
-            // Form1
+            // Game
             // 
             this.AutoScaleDimensions = new SizeF(6F, 13F);
             this.AutoScaleMode = AutoScaleMode.Font;
@@ -362,7 +362,7 @@
             this.Controls.Add(this.buttonCheck);
             this.Controls.Add(this.buttonFold);
             this.DoubleBuffered = true;
-            this.Name = "Form1";
+            this.Name = "Game";
             this.Text = "GLS Texas Poker";
             //this.Layout += new LayoutEventHandler(this.Layout_Change);
             this.ResumeLayout(false);
